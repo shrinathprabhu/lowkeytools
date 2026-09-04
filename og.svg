@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-label="lowkey.tools">
+  <!-- The 1200x630 card sits centred in a square canvas so a centred crop yields it exactly. -->
+  <defs>
+    <mask id="og-gear">
+      <rect x="-8" y="-8" width="80" height="80" fill="#fff"/>
+      <circle cx="47" cy="22" r="4.2" fill="#000"/>
+    </mask>
+    <mask id="og-box">
+      <rect x="-8" y="-8" width="80" height="80" fill="#fff"/>
+      <rect x="2" y="39" width="60" height="2.6" fill="#000"/>
+    </mask>
+  </defs>
+
+  <g transform="translate(0 285)">
+    <rect width="1200" height="630" fill="#191b1f"/>
+
+    <g transform="translate(90 62) scale(1.875)">
+      <g mask="url(#og-gear)" fill="#e08a3c">
+        <g transform="translate(47 22) rotate(22.5)">
+          <circle r="10"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(45)"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(90)"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(135)"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(180)"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(225)"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(270)"/>
+          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(315)"/>
+        </g>
+      </g>
+      <g fill="none" stroke="#faf9f6" stroke-width="5.4" stroke-linecap="round">
+        <path d="M15.65 12.50A6.6 6.6 0 1 1 8.00 20.15"/>
+        <path d="M17.39 21.89 29.35 33.85"/>
+      </g>
+      <g mask="url(#og-box)">
+        <rect x="4" y="32" width="56" height="26" rx="6" fill="#faf9f6"/>
+      </g>
+    </g>
+
+    <g font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+      <text x="232" y="142" font-size="54" font-weight="600" letter-spacing="-1" fill="#faf9f6">lowkey<tspan fill="#e08a3c">.</tspan>tools</text>
+      <text x="90" y="330" font-size="68" font-weight="600" letter-spacing="-2" fill="#faf9f6">Small tools, quietly useful.</text>
+      <text x="90" y="392" font-size="32" fill="#9aa0a8">Free single purpose web apps. No sign up, nothing to install.</text>
+      <text x="90" y="552" font-size="30" fill="#9aa0a8">From the makers of OwlEye Analytics</text>
+    </g>
+  </g>
+</svg>

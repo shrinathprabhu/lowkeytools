@@ -1,0 +1,30 @@
+# lowkey.tools
+
+> lowkey.tools is a small collection of free, single purpose web tools from the
+> makers of OwlEye Analytics. Each tool does one job in the browser. There is no
+> account, no onboarding and nothing to install.
+
+Every tool lives on the same domain under its own path. The tools are independent
+apps, deployed separately and proxied onto lowkey.tools by path prefix.
+
+## Tools
+
+- [Superbrain](https://lowkey.tools/superbrain): A place to dump notes, links and half formed ideas, and actually find them again later.
+- [Supersplit](https://lowkey.tools/supersplit): Split expenses with a group, track who paid for what, and see who owes whom.
+- [Favigen](https://lowkey.tools/favigen): Drop in one image and get back every favicon and app icon size a site needs.
+
+## Coming soon
+
+- Credo: not live yet, it will appear at https://lowkey.tools/credo
+
+## Facts
+
+- Cost: every tool listed here is free to use.
+- Account: none required.
+- Platform: runs in any modern web browser, no install step.
+- Maker: OwlEye Analytics, built by Shrinath Prabhu.
+
+## About the makers
+
+- [OwlEye Analytics](https://owleye.dev): the product team behind lowkey.tools.
+- [Shrinath Prabhu](https://shrinath.me): developer.
