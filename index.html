@@ -1,300 +1,483 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>lowkey.tools | Small single purpose web tools</title>
-<meta name="description" content="A small set of free, single purpose web tools. No sign up, nothing to install. Open one, use it, close the tab.">
-<link rel="canonical" href="https://lowkey.tools/">
+    <title>lowkey.tools | Small single purpose web tools</title>
+    <meta
+      name="description"
+      content="A small set of free, single purpose web tools. No sign up, nothing to install. Open one, use it, close the tab."
+    />
+    <link rel="canonical" href="https://lowkey.tools" />
 
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="author" content="Shrinath Prabhu">
-<meta name="publisher" content="OwlEye Analytics">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <meta name="author" content="Shrinath Prabhu" />
+    <meta name="publisher" content="OwlEye Analytics" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#faf9f6"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#121316"
+      media="(prefers-color-scheme: dark)"
+    />
 
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="lowkey.tools">
-<meta property="og:locale" content="en_US">
-<meta property="og:url" content="https://lowkey.tools/">
-<meta property="og:title" content="lowkey.tools | Small single purpose web tools">
-<meta property="og:description" content="A small set of free, single purpose web tools. No sign up, nothing to install. Open one, use it, close the tab.">
-<meta property="og:image" content="https://lowkey.tools/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="lowkey.tools">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="lowkey.tools" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://lowkey.tools" />
+    <meta
+      property="og:title"
+      content="lowkey.tools | Small single purpose web tools"
+    />
+    <meta
+      property="og:description"
+      content="A small set of free, single purpose web tools. No sign up, nothing to install. Open one, use it, close the tab."
+    />
+    <meta property="og:image" content="https://lowkey.tools/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="lowkey.tools" />
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="lowkey.tools | Small single purpose web tools">
-<meta name="twitter:description" content="A small set of free, single purpose web tools. No sign up, nothing to install.">
-<meta name="twitter:image" content="https://lowkey.tools/og.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="lowkey.tools | Small single purpose web tools"
+    />
+    <meta
+      name="twitter:description"
+      content="A small set of free, single purpose web tools. No sign up, nothing to install."
+    />
+    <meta name="twitter:image" content="https://lowkey.tools/og.png" />
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
 
-<link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles.css" />
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://lowkey.tools/#website",
-      "url": "https://lowkey.tools/",
-      "name": "lowkey.tools",
-      "alternateName": "Lowkey Tools",
-      "description": "A small set of free, single purpose web tools. No sign up, nothing to install.",
-      "inLanguage": "en",
-      "publisher": { "@id": "https://owleye.dev/#organization" }
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://owleye.dev/#organization",
-      "name": "OwlEye Analytics",
-      "url": "https://owleye.dev",
-      "sameAs": ["https://shrinath.me", "https://lowkey.tools/"],
-      "founder": { "@id": "https://shrinath.me/#person" }
-    },
-    {
-      "@type": "Person",
-      "@id": "https://shrinath.me/#person",
-      "name": "Shrinath Prabhu",
-      "url": "https://shrinath.me",
-      "worksFor": { "@id": "https://owleye.dev/#organization" }
-    },
-    {
-      "@type": "CollectionPage",
-      "@id": "https://lowkey.tools/#webpage",
-      "url": "https://lowkey.tools/",
-      "name": "lowkey.tools",
-      "isPartOf": { "@id": "https://lowkey.tools/#website" },
-      "about": "Free single purpose web tools",
-      "mainEntity": { "@id": "https://lowkey.tools/#toollist" }
-    },
-    {
-      "@type": "ItemList",
-      "@id": "https://lowkey.tools/#toollist",
-      "name": "Tools on lowkey.tools",
-      "numberOfItems": 3,
-      "itemListOrder": "https://schema.org/ItemListUnordered",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "WebApplication",
-            "@id": "https://lowkey.tools/superbrain#app",
-            "name": "Superbrain",
-            "url": "https://lowkey.tools/superbrain",
-            "description": "A place to dump notes, links and half formed ideas, and actually find them again later.",
-            "applicationCategory": "ProductivityApplication",
-            "operatingSystem": "Any web browser",
-            "browserRequirements": "Requires JavaScript",
-            "isAccessibleForFree": true,
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://lowkey.tools/#website",
+            "url": "https://lowkey.tools/",
+            "name": "lowkey.tools",
+            "alternateName": "Lowkey Tools",
+            "description": "A small set of free, single purpose web tools. No sign up, nothing to install.",
+            "inLanguage": "en",
             "publisher": { "@id": "https://owleye.dev/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://owleye.dev/#organization",
+            "name": "OwlEye Analytics",
+            "url": "https://owleye.dev",
+            "sameAs": ["https://shrinath.me", "https://lowkey.tools/"],
+            "founder": { "@id": "https://shrinath.me/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://shrinath.me/#person",
+            "name": "Shrinath Prabhu",
+            "url": "https://shrinath.me",
+            "worksFor": { "@id": "https://owleye.dev/#organization" }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://lowkey.tools/#webpage",
+            "url": "https://lowkey.tools/",
+            "name": "lowkey.tools",
+            "isPartOf": { "@id": "https://lowkey.tools/#website" },
+            "about": "Free single purpose web tools",
+            "mainEntity": { "@id": "https://lowkey.tools/#toollist" }
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://lowkey.tools/#toollist",
+            "name": "Tools on lowkey.tools",
+            "numberOfItems": 4,
+            "itemListOrder": "https://schema.org/ItemListUnordered",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "WebApplication",
+                  "@id": "https://lowkey.tools/superbrain#app",
+                  "name": "Superbrain",
+                  "url": "https://lowkey.tools/superbrain",
+                  "description": "A place to dump notes, links and half formed ideas, and actually find them again later.",
+                  "applicationCategory": "ProductivityApplication",
+                  "operatingSystem": "Any web browser",
+                  "browserRequirements": "Requires JavaScript",
+                  "isAccessibleForFree": true,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "publisher": { "@id": "https://owleye.dev/#organization" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "WebApplication",
+                  "@id": "https://lowkey.tools/supersplit#app",
+                  "name": "Supersplit",
+                  "url": "https://lowkey.tools/supersplit",
+                  "description": "Split expenses with a group, track who paid for what, and see who owes whom.",
+                  "applicationCategory": "FinanceApplication",
+                  "operatingSystem": "Any web browser",
+                  "browserRequirements": "Requires JavaScript",
+                  "isAccessibleForFree": true,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "publisher": { "@id": "https://owleye.dev/#organization" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "WebApplication",
+                  "@id": "https://lowkey.tools/favigen#app",
+                  "name": "Favigen",
+                  "url": "https://lowkey.tools/favigen",
+                  "description": "Drop in one image and get back every favicon and app icon size a site needs.",
+                  "applicationCategory": "DeveloperApplication",
+                  "operatingSystem": "Any web browser",
+                  "browserRequirements": "Requires JavaScript",
+                  "isAccessibleForFree": true,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "publisher": { "@id": "https://owleye.dev/#organization" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "WebApplication",
+                  "@id": "https://lowkey.tools/credo#app",
+                  "name": "Credo",
+                  "url": "https://lowkey.tools/credo",
+                  "description": "A credential and secret manager that keeps sensitive values out of plain sight.",
+                  "applicationCategory": "SecurityApplication",
+                  "operatingSystem": "Any web browser",
+                  "browserRequirements": "Requires JavaScript",
+                  "isAccessibleForFree": true,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "publisher": { "@id": "https://owleye.dev/#organization" }
+                }
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://lowkey.tools/#faq",
+            "isPartOf": { "@id": "https://lowkey.tools/#webpage" },
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is lowkey.tools?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "lowkey.tools is a small collection of free, single purpose web tools from the makers of OwlEye Analytics. Each tool does one job in the browser, with no sign up and nothing to install."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do the tools cost anything?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Every tool listed on lowkey.tools is free to use."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I need an account to use them?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. There is no account and no onboarding. Open the tool and start using it."
+                }
+              }
+            ]
           }
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "WebApplication",
-            "@id": "https://lowkey.tools/supersplit#app",
-            "name": "Supersplit",
-            "url": "https://lowkey.tools/supersplit",
-            "description": "Split expenses with a group, track who paid for what, and see who owes whom.",
-            "applicationCategory": "FinanceApplication",
-            "operatingSystem": "Any web browser",
-            "browserRequirements": "Requires JavaScript",
-            "isAccessibleForFree": true,
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-            "publisher": { "@id": "https://owleye.dev/#organization" }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "item": {
-            "@type": "WebApplication",
-            "@id": "https://lowkey.tools/favigen#app",
-            "name": "Favigen",
-            "url": "https://lowkey.tools/favigen",
-            "description": "Drop in one image and get back every favicon and app icon size a site needs.",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Any web browser",
-            "browserRequirements": "Requires JavaScript",
-            "isAccessibleForFree": true,
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-            "publisher": { "@id": "https://owleye.dev/#organization" }
-          }
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://lowkey.tools/#faq",
-      "isPartOf": { "@id": "https://lowkey.tools/#webpage" },
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is lowkey.tools?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "lowkey.tools is a small collection of free, single purpose web tools from the makers of OwlEye Analytics. Each tool does one job in the browser, with no sign up and nothing to install."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do the tools cost anything?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Every tool listed on lowkey.tools is free to use."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need an account to use them?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. There is no account and no onboarding. Open the tool and start using it."
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
-</head>
-<body>
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#tools">Skip to tools</a>
 
-<a class="skip" href="#tools">Skip to tools</a>
+    <header class="site-head">
+      <span class="brand">
+        <svg
+          class="mark"
+          viewBox="0 0 64 64"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <defs>
+            <mask id="lk-gear">
+              <rect width="64" height="64" fill="#fff" />
+              <circle cx="47" cy="22" r="4.2" fill="#000" />
+            </mask>
+            <mask id="lk-box">
+              <rect width="64" height="64" fill="#fff" />
+              <rect x="2" y="39" width="60" height="2.6" fill="#000" />
+            </mask>
+          </defs>
+          <g mask="url(#lk-gear)" fill="var(--accent)">
+            <g transform="translate(47 22) rotate(22.5)">
+              <circle r="10" />
+              <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(45)"
+              />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(90)"
+              />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(135)"
+              />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(180)"
+              />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(225)"
+              />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(270)"
+              />
+              <rect
+                x="-3.2"
+                y="-13.6"
+                width="6.4"
+                height="5.4"
+                rx="1.4"
+                transform="rotate(315)"
+              />
+            </g>
+          </g>
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="5.4"
+            stroke-linecap="round"
+          >
+            <path d="M15.65 12.50A6.6 6.6 0 1 1 8.00 20.15" />
+            <path d="M17.39 21.89 29.35 33.85" />
+          </g>
+          <g mask="url(#lk-box)">
+            <rect
+              x="4"
+              y="32"
+              width="56"
+              height="26"
+              rx="6"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+        <span class="wordmark">lowkey<span class="dot">.</span>tools</span>
+      </span>
+    </header>
 
-<header class="site-head">
-  <span class="brand">
-    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <defs>
-        <mask id="lk-gear">
-          <rect width="64" height="64" fill="#fff"/>
-          <circle cx="47" cy="22" r="4.2" fill="#000"/>
-        </mask>
-        <mask id="lk-box">
-          <rect width="64" height="64" fill="#fff"/>
-          <rect x="2" y="39" width="60" height="2.6" fill="#000"/>
-        </mask>
-      </defs>
-      <g mask="url(#lk-gear)" fill="var(--accent)">
-        <g transform="translate(47 22) rotate(22.5)">
-          <circle r="10"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(45)"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(90)"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(135)"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(180)"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(225)"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(270)"/>
-          <rect x="-3.2" y="-13.6" width="6.4" height="5.4" rx="1.4" transform="rotate(315)"/>
-        </g>
-      </g>
-      <g fill="none" stroke="currentColor" stroke-width="5.4" stroke-linecap="round">
-        <path d="M15.65 12.50A6.6 6.6 0 1 1 8.00 20.15"/>
-        <path d="M17.39 21.89 29.35 33.85"/>
-      </g>
-      <g mask="url(#lk-box)">
-        <rect x="4" y="32" width="56" height="26" rx="6" fill="currentColor"/>
-      </g>
-    </svg>
-    <span class="wordmark">lowkey<span class="dot">.</span>tools</span>
-  </span>
-</header>
+    <main>
+      <section class="hero">
+        <h1>Small tools, quietly useful.</h1>
+        <p class="lede">
+          A handful of single purpose web apps, each built to do one job and
+          then get out of the way. Nothing to install, nothing to sign up for.
+          Open one, use it, close the tab.
+        </p>
+      </section>
 
-<main>
-  <section class="hero">
-    <h1>Small tools, quietly useful.</h1>
-    <p class="lede">
-      A handful of single purpose web apps, each built to do one job and then get out of the way.
-      Nothing to install, nothing to sign up for. Open one, use it, close the tab.
-    </p>
-  </section>
+      <section id="tools" class="tools" aria-labelledby="tools-title">
+        <h2 id="tools-title" class="section-title">
+          Live now <span class="count">4</span>
+        </h2>
 
-  <section id="tools" class="tools" aria-labelledby="tools-title">
-    <h2 id="tools-title" class="section-title">Live now <span class="count">3</span></h2>
+        <ul class="tool-list">
+          <li>
+            <a class="tool" href="/superbrain">
+              <span class="tool-icon" aria-hidden="true">
+                <img
+                  src="https://superbrain.lowkey.tools/favicon.svg"
+                  width="20"
+                  height="20"
+                  alt=""
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+              </span>
+              <span class="tool-head">
+                <span class="tool-name">Superbrain</span>
+                <span class="tool-path">/superbrain</span>
+              </span>
+              <span class="tool-desc"
+                >A place to dump notes, links and half formed ideas, and
+                actually find them again later.</span
+              >
+              <span class="tool-go" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="tool" href="/supersplit">
+              <span class="tool-icon" aria-hidden="true">
+                <img
+                  src="https://supersplit.lowkey.tools/favicon.svg"
+                  width="20"
+                  height="20"
+                  alt=""
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+              </span>
+              <span class="tool-head">
+                <span class="tool-name">Supersplit</span>
+                <span class="tool-path">/supersplit</span>
+              </span>
+              <span class="tool-desc"
+                >Split expenses with a group, track who paid for what, and see
+                who owes whom.</span
+              >
+              <span class="tool-go" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="tool" href="/favigen">
+              <span class="tool-icon" aria-hidden="true">
+                <img
+                  src="https://favigen.lowkey.tools/favicon.svg"
+                  width="20"
+                  height="20"
+                  alt=""
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+              </span>
+              <span class="tool-head">
+                <span class="tool-name">Favigen</span>
+                <span class="tool-path">/favigen</span>
+              </span>
+              <span class="tool-desc"
+                >Drop in one image and get back every favicon and app icon size
+                a site needs.</span
+              >
+              <span class="tool-go" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="tool" href="/credo">
+              <span class="tool-icon" aria-hidden="true">
+                <img
+                  src="https://credo.lowkey.tools/favicon.svg"
+                  width="20"
+                  height="20"
+                  alt=""
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+              </span>
+              <span class="tool-head">
+                <span class="tool-name">Credo</span>
+                <span class="tool-path">/credo</span>
+              </span>
+              <span class="tool-desc"
+                >A credential and secret manager that keeps sensitive values out
+                of plain sight.</span
+              >
+              <span class="tool-go" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        </ul>
+      </section>
 
-    <ul class="tool-list">
-      <li>
-        <a class="tool" href="/superbrain">
-          <span class="tool-head">
-            <span class="tool-name">Superbrain</span>
-            <span class="tool-path">/superbrain</span>
-          </span>
-          <span class="tool-desc">A place to dump notes, links and half formed ideas, and actually find them again later.</span>
-          <span class="tool-go" aria-hidden="true">&rarr;</span>
-        </a>
-      </li>
-      <li>
-        <a class="tool" href="/supersplit">
-          <span class="tool-head">
-            <span class="tool-name">Supersplit</span>
-            <span class="tool-path">/supersplit</span>
-          </span>
-          <span class="tool-desc">Split expenses with a group, track who paid for what, and see who owes whom.</span>
-          <span class="tool-go" aria-hidden="true">&rarr;</span>
-        </a>
-      </li>
-      <li>
-        <a class="tool" href="/favigen">
-          <span class="tool-head">
-            <span class="tool-name">Favigen</span>
-            <span class="tool-path">/favigen</span>
-          </span>
-          <span class="tool-desc">Drop in one image and get back every favicon and app icon size a site needs.</span>
-          <span class="tool-go" aria-hidden="true">&rarr;</span>
-        </a>
-      </li>
-    </ul>
-  </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title" class="section-title">Questions</h2>
+        <dl>
+          <dt>What is lowkey.tools?</dt>
+          <dd>
+            A small collection of free, single purpose web tools from the makers
+            of OwlEye Analytics. Each one does a single job in the browser, with
+            no sign up and nothing to install.
+          </dd>
+          <dt>Do the tools cost anything?</dt>
+          <dd>No. Every tool listed here is free to use.</dd>
+          <dt>Do I need an account?</dt>
+          <dd>
+            No. There is no account and no onboarding. Open the tool and start
+            using it.
+          </dd>
+        </dl>
+      </section>
+    </main>
 
-  <section class="tools upcoming" aria-labelledby="soon-title">
-    <h2 id="soon-title" class="section-title">Coming soon</h2>
-
-    <ul class="tool-list">
-      <li>
-        <div class="tool tool--soon">
-          <span class="tool-head">
-            <span class="tool-name">Credo</span>
-            <span class="tool-path">/credo</span>
-          </span>
-          <span class="tool-desc">Details soon.</span>
-          <span class="tool-soon">Soon</span>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <section class="faq" aria-labelledby="faq-title">
-    <h2 id="faq-title" class="section-title">Questions</h2>
-    <dl>
-      <dt>What is lowkey.tools?</dt>
-      <dd>A small collection of free, single purpose web tools from the makers of OwlEye Analytics. Each one does a single job in the browser, with no sign up and nothing to install.</dd>
-      <dt>Do the tools cost anything?</dt>
-      <dd>No. Every tool listed here is free to use.</dd>
-      <dt>Do I need an account?</dt>
-      <dd>No. There is no account and no onboarding. Open the tool and start using it.</dd>
-    </dl>
-  </section>
-</main>
-
-<footer class="site-foot">
-  <p class="made">From the makers of <a href="https://owleye.dev">OwlEye Analytics</a>.</p>
-  <p class="by">Built by <a href="https://shrinath.me" rel="me author">Shrinath</a>. More tools show up here as they ship.</p>
-</footer>
-
-</body>
+    <footer class="site-foot">
+      <p class="made">
+        From the makers of <a href="https://owleye.dev">OwlEye Analytics</a>.
+      </p>
+      <p class="by">
+        Built by <a href="https://shrinath.me" rel="me author">Shrinath</a>.
+        More tools show up here as they ship.
+      </p>
+    </footer>
+  </body>
 </html>

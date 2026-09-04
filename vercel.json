@@ -27,6 +27,12 @@
     {
       "source": "/favigen/:path*",
       "destination": "https://favigen.lowkey.tools/:path*"
+    },
+    { "source": "/credo", "destination": "https://credo.lowkey.tools" },
+    { "source": "/credo/", "destination": "/credo" },
+    {
+      "source": "/credo/:path*",
+      "destination": "https://credo.lowkey.tools/:path*"
     }
   ],
   "headers": [
