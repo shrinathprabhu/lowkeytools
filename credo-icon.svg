@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Credo">
+  <defs>
+    <linearGradient id="cg" x1="3" y1="1" x2="29" y2="31" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3BE8B0"/>
+      <stop offset=".55" stop-color="#12C58C"/>
+      <stop offset="1" stop-color="#7C74FF"/>
+    </linearGradient>
+    <linearGradient id="cs" x1="4" y1="3" x2="18" y2="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="cm">
+      <rect width="32" height="32" fill="#000"/>
+      <path d="M16 1.2 29.6 6.2V16.6C29.6 24 23.9 29.5 16 31.6 8.1 29.5 2.4 24 2.4 16.6V6.2Z" fill="#fff"/>
+      <circle cx="16" cy="14.2" r="3.4" fill="#000"/>
+      <path d="M13.75 16.6 12.6 23.6A1 1 0 0 0 13.6 24.7H18.4A1 1 0 0 0 19.4 23.6L18.25 16.6Z" fill="#000"/>
+    </mask>
+  </defs>
+  <g mask="url(#cm)">
+    <path d="M16 1.2 29.6 6.2V16.6C29.6 24 23.9 29.5 16 31.6 8.1 29.5 2.4 24 2.4 16.6V6.2Z" fill="url(#cg)"/>
+    <path d="M16 1.2 29.6 6.2V16.6C29.6 24 23.9 29.5 16 31.6 8.1 29.5 2.4 24 2.4 16.6V6.2Z" fill="url(#cs)"/>
+  </g>
+</svg>
