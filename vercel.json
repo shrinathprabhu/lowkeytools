@@ -6,21 +6,20 @@
       "destination": "https://superbrain.lowkey.tools"
     },
     {
-      "source": "/supersplit/",
-      "destination": "/supersplit"
+      "source": "/superbrain/",
+      "destination": "/superbrain"
     },
     {
       "source": "/superbrain/:path*",
       "destination": "https://superbrain.lowkey.tools/:path*"
     },
-
     {
       "source": "/supersplit",
       "destination": "https://supersplit.lowkey.tools"
     },
     {
-      "source": "/superbrain/",
-      "destination": "/superbrain"
+      "source": "/supersplit/",
+      "destination": "/supersplit"
     },
     {
       "source": "/supersplit/:path*",
