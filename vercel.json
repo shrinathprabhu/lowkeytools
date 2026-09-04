@@ -25,7 +25,6 @@
       "source": "/supersplit/:path*",
       "destination": "https://supersplit.lowkey.tools/:path*"
     },
-
     { "source": "/favigen", "destination": "https://favigen.lowkey.tools" },
     { "source": "/favigen/", "destination": "/favigen" },
     {
