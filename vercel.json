@@ -6,6 +6,10 @@
       "destination": "https://superbrain.lowkey.tools"
     },
     {
+      "source": "/supersplit/",
+      "destination": "/supersplit"
+    },
+    {
       "source": "/superbrain/:path*",
       "destination": "https://superbrain.lowkey.tools/:path*"
     },
@@ -15,11 +19,16 @@
       "destination": "https://supersplit.lowkey.tools"
     },
     {
+      "source": "/superbrain/",
+      "destination": "/superbrain"
+    },
+    {
       "source": "/supersplit/:path*",
       "destination": "https://supersplit.lowkey.tools/:path*"
     },
 
     { "source": "/favigen", "destination": "https://favigen.lowkey.tools" },
+    { "source": "/favigen/", "destination": "/favigen" },
     {
       "source": "/favigen/:path*",
       "destination": "https://favigen.lowkey.tools/:path*"
