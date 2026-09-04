@@ -2,15 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/supersplit",
-      "destination": "/supersplit/"
-    },
-    {
-      "source": "/superbrain",
-      "destination": "/superbrain/"
-    },
-    { "source": "/favigen", "destination": "/favigen/" },
-    {
       "source": "/superbrain",
       "destination": "https://superbrain.lowkey.tools"
     },
