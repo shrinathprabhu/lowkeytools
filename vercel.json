@@ -33,6 +33,12 @@
     {
       "source": "/credo/:path*",
       "destination": "https://credo.lowkey.tools/:path*"
+    },
+    { "source": "/billbook", "destination": "https://billbook.lowkey.tools" },
+    { "source": "/billbook/", "destination": "/billbook" },
+    {
+      "source": "/billbook/:path*",
+      "destination": "https://billbook.lowkey.tools/:path*"
     }
   ],
   "headers": [

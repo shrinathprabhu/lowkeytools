@@ -108,7 +108,7 @@
             "@type": "ItemList",
             "@id": "https://lowkey.tools/#toollist",
             "name": "Tools on lowkey.tools",
-            "numberOfItems": 4,
+            "numberOfItems": 5,
             "itemListOrder": "https://schema.org/ItemListUnordered",
             "itemListElement": [
               {
@@ -184,6 +184,27 @@
                   "url": "https://lowkey.tools/favigen",
                   "description": "Drop in one image and get back every favicon and app icon size a site needs.",
                   "applicationCategory": "DeveloperApplication",
+                  "operatingSystem": "Any web browser",
+                  "browserRequirements": "Requires JavaScript",
+                  "isAccessibleForFree": true,
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "publisher": { "@id": "https://owleye.dev/#organization" }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                  "@type": "WebApplication",
+                  "@id": "https://lowkey.tools/billbook#app",
+                  "name": "Billbook",
+                  "url": "https://lowkey.tools/billbook",
+                  "description": "Create and send professional invoices in seconds, with no account required.",
+                  "applicationCategory": "FinanceApplication",
                   "operatingSystem": "Any web browser",
                   "browserRequirements": "Requires JavaScript",
                   "isAccessibleForFree": true,
@@ -351,7 +372,7 @@
 
       <section id="tools" class="tools" aria-labelledby="tools-title">
         <h2 id="tools-title" class="section-title">
-          Live now <span class="count">4</span>
+          Live now <span class="count">5</span>
         </h2>
 
         <ul class="tool-list">
@@ -443,6 +464,29 @@
               <span class="tool-desc"
                 >Drop in one image and get back every favicon and app icon size
                 a site needs.</span
+              >
+              <span class="tool-go" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="tool" href="/billbook">
+              <span class="tool-icon" aria-hidden="true">
+                <img
+                  src="/billbook-icon.svg"
+                  width="20"
+                  height="20"
+                  alt=""
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+              </span>
+              <span class="tool-head">
+                <span class="tool-name">Billbook</span>
+                <span class="tool-path">/billbook</span>
+              </span>
+              <span class="tool-desc"
+                >Create and send professional invoices in seconds, with no
+                account required.</span
               >
               <span class="tool-go" aria-hidden="true">&rarr;</span>
             </a>
