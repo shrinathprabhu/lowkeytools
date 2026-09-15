@@ -25,12 +25,13 @@ test('static links, JSON-LD and crawler files stay in sync without browser JS', 
   assert.equal(list.itemListElement.length, liveTools().length);
   for (const tool of liveTools()) {
     assert.ok(html.includes(`href="${tool.url}"`), tool.id);
-    assert.ok(xml.includes(`<loc>${tool.url}</loc>`), tool.id);
+    assert.ok(!xml.includes(`<loc>${tool.url}</loc>`), tool.id);
     assert.ok(llms.includes(`](${tool.url})`), tool.id);
     await access(new URL(`../dist${tool.icon}`, import.meta.url));
   }
   assert.equal((html.match(/data-tool-id=/g) || []).length, tools.length);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.deepEqual([...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]), [site.url]);
   assert.ok(!xml.includes('/follow'));
   assert.ok(html.includes('<link rel="canonical" href="https://lowkey.tools/">'));
   assert.ok(!html.includes('{{'));
@@ -47,7 +48,9 @@ test('changing only config order or adding an entry updates static output and di
     const xml = await readFile(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
     assert.ok(html.indexOf('data-tool-id="supersplit"') < html.indexOf('data-tool-id="superbrain"'));
     assert.ok(html.includes('data-tool-id="test-tool"'));
-    assert.ok(xml.includes('<loc>https://example.com/</loc>'));
+    assert.ok(!xml.includes('<loc>https://example.com/</loc>'));
+    const llms = await readFile(new URL('../dist/llms.txt', import.meta.url), 'utf8');
+    assert.ok(llms.includes('[Test tool](https://example.com/)'));
   } finally { first.order = order; tools.pop(); await build(); }
 });
 

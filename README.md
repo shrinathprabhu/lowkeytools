@@ -49,7 +49,8 @@ this automatically. No layout changes are needed.
 }
 ```
 
-- `Live` includes a tool in the sitemap, llms.txt and JSON-LD. Use `Coming soon`
+- `Live` includes a tool in llms.txt and JSON-LD. Only same-origin tool URLs
+  can also appear in the hub sitemap. Use `Coming soon`
   (optionally another date badge) to keep a planned tool out of those live lists.
   Give upcoming cards a working announcement destination; cards are real links.
 - Only SuperBrain, SuperSplit, SuperFocus, StreakFreak and Billgen have
@@ -144,10 +145,12 @@ Hub title/description, OG/Twitter tags and JSON-LD derive from the same config.
 The existing `og.png` is a valid 1200 × 630 hub preview. This pass does not change
 individual tools' social images. Existing brand assets are reused locally.
 
-The generated sitemap lists the hub and all live canonical tool roots as
-requested. It spans subdomains: verify ownership of those hosts in the search
-consoles before submitting a cross-site sitemap. Each tool's own sitemap remains
-its authority for deeper routes. `/follow` is excluded and sends `noindex`.
+The generated hub sitemap contains only canonical, indexable URLs on
+`https://lowkey.tools/`; currently, this is just the homepage. Tool subdomains
+use their own sitemaps. They remain linked from the homepage, JSON-LD and
+llms.txt. The generator excludes other origins automatically, so adding a tool
+won't reintroduce subdomains. `www`, wildcard hosts, error pages and `/follow`
+are excluded. `/follow` also sends `noindex`.
 
 `robots.txt` allows search/answer-engine crawlers. The hub registers no service
 worker. Existing favicon/social source regeneration stays in `build-icons.sh`.
