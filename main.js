@@ -3,22 +3,25 @@
   const sections = [...document.querySelectorAll('section[data-section]')];
   const search = document.querySelector('#tool-search');
   const status = document.querySelector('#search-status');
-  document.querySelector('#search-controls').hidden = false;
+  document.querySelector('#search-controls').removeAttribute('data-pending');
   const normalize = text => text.normalize('NFKD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  // Cache searchable text and section membership once, not on each keystroke.
+  const groups = sections.map(section => ({ section, entries: cards.filter(card => card.dataset.section === section.dataset.section).map(card => ({ card, cell: card.closest('li') || card, text: normalize(card.dataset.search) })) }));
+  const empty = document.querySelector('#empty-state');
   function filter() {
     const terms = normalize(search.value).trim().split(/\s+/).filter(Boolean);
     let count = 0;
-    for (const section of sections) {
+    for (const { section, entries } of groups) {
       let position = 0;
-      for (const card of cards.filter(card => card.dataset.section === section.dataset.section)) {
-        const visible = terms.every(term => normalize(card.dataset.search).includes(term));
-        (card.closest('li') || card).hidden = !visible;
+      for (const { card, cell, text } of entries) {
+        const visible = terms.every(term => text.includes(term));
+        cell.hidden = !visible;
         card.dataset.visiblePosition = visible ? String(++position) : '0';
         if (visible) count++;
       }
       section.hidden = position === 0;
     }
-    document.querySelector('#empty-state').hidden = count !== 0;
+    empty.hidden = count !== 0;
     status.textContent = terms.length ? `${count} ${count === 1 ? 'result' : 'results'} found.` : '';
   }
   search.addEventListener('input', filter);

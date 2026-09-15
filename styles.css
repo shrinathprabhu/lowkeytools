@@ -4,7 +4,7 @@
   src: url('/fonts/geist-sans-v1.7.2.woff2') format('woff2');
   font-style: normal;
   font-weight: 100 900;
-  font-display: swap;
+  font-display: optional;
 }
 :root {
   color-scheme: light;
@@ -31,8 +31,10 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; }
-body { margin: 0 auto; max-width: 1040px; padding: 28px 32px 24px; background: var(--bg); color: var(--text); font: 14px/1.5 Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+/* Keep enhancement controls out of focus order while reserving their space. */
+[data-pending] { visibility: hidden; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; scrollbar-gutter: stable both-edges; }
+body { margin: 0 auto; width: 100%; max-width: 1040px; padding: 28px 32px 24px; background: var(--bg); color: var(--text); font: 14px/1.5 Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-underline-offset: 3px; }
 button, input { font: inherit; }
 button { cursor: pointer; color: inherit; }
@@ -197,11 +199,11 @@ kbd { display: inline-block; padding: 0 4px; border: 1px solid var(--line); bord
   .section-heading p { font-size: 9px; }
   .game-grid .tool { padding: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
 
 /* Error pages stay usable even when the application is unavailable. */
 .status-page { min-height: 100svh; display: flex; flex-direction: column; }
-.status-main { flex: 1; display: grid; align-content: center; padding: 48px 0; max-width: 640px; }
+.status-main { flex: 1; display: grid; align-content: center; padding: 48px 0; width: 100%; min-width: 0; }
 .status-code { font-size: clamp(76px, 18vw, 136px); font-weight: 650; line-height: 1; letter-spacing: -.07em; color: var(--line-strong); }
 .status-main h1 { font-size: clamp(28px, 5vw, 42px); letter-spacing: -.04em; margin: 20px 0 14px; }
 .status-main .lede { font-size: 16px; }
@@ -219,8 +221,36 @@ kbd { display: inline-block; padding: 0 4px; border: 1px solid var(--line); bord
   .tool-teaser .tool-go { display: none; }
   .tool-teaser .tool-name, .tool-teaser .tool-desc, .tool-teaser .follow-cta { grid-column: 2; }
   .tool-teaser .tool-desc { max-width: none; }
-  .game-grid { grid-template-columns: repeat(3, minmax(116px, 1fr)); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; padding: 4px 4px 10px; margin: -4px -4px 0; }
+  .game-grid { grid-template-columns: repeat(3, minmax(116px, 1fr)); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; padding: 4px 0 10px; margin: 0; }
   .game-grid li { scroll-snap-align: start; }
   .game-grid .tool-name { overflow-wrap: normal; }
   .game-grid .card-top .badge-live { display: none; }
+}
+
+/* Shared outer edges; text can retain a readable line length inside them. */
+body > header, body > main, body > footer { width: 100%; min-width: 0; }
+.theme-toggle, .status-actions a, .math-game button { transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.tool-go, .cta > span { display: inline-block; transition: transform 160ms ease; }
+@media (hover: hover) {
+  .tool:hover .tool-go { transform: translate(2px, -2px); }
+  .status-actions a:hover, .math-game button:hover { border-color: var(--accent); transform: translateY(-1px); }
+}
+.game-grid .tool:focus-visible { outline-offset: -3px; }
+.math-game { margin-top: 28px; padding: 20px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
+.math-game h2 { font-size: 18px; letter-spacing: -.4px; }
+.math-game .game-intro { color: var(--muted); margin-top: 4px; font-size: 13px; }
+.math-game .game-progress { margin-top: 18px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.math-game .game-question { margin: 8px 0 14px; font-size: 32px; font-weight: 600; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.game-answers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.math-game button { min-height: 46px; padding: 10px 14px; border: 1px solid var(--line-strong); background: var(--bg); border-radius: 8px; font: inherit; color: var(--text); }
+.math-game button:disabled { cursor: default; }
+.math-game [aria-pressed="true"] { border-color: var(--accent); background: var(--badge); }
+.math-game .game-feedback { margin-top: 12px; min-height: 3em; font-size: 13px; color: var(--muted); }
+.game-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; }
+.game-bottom a { color: var(--muted); }
+.status-main:has(.math-game) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+.status-main:has(.math-game) .math-game { margin-top: 0; }
+@media (max-width: 760px) {
+  .status-main:has(.math-game) { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .math-game { padding: 16px; }
 }

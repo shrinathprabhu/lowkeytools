@@ -270,3 +270,50 @@ A Wrangler dry run and local runtime checks do not provision domains, DNS, or TL
 References: [Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/),
 [Worker routes and precedence](https://developers.cloudflare.com/workers/configuration/routing/routes/),
 [wildcard DNS](https://developers.cloudflare.com/dns/manage-dns-records/reference/wildcard-dns-records/).
+
+## Layout stability and the 404 game
+
+The homepage and status pages share the same 1040px outer container and responsive
+padding. A stable scrollbar gutter prevents width jumps when search shortens a
+page. Search and theme controls reserve their space before JavaScript loads.
+Geist is preloaded with `font-display: optional`: on a slow first visit, the system
+font stays for that navigation rather than swapping late and moving content.
+Only the small saved-theme initializer runs before paint; external scripts defer.
+Hover transitions affect color and transforms and respect reduced motion.
+
+The 404 page includes a five-question math game with touch/keyboard controls,
+scoring and replay. Its deferred inline module needs no external application,
+network requests, storage, timers or animation loop. Without JavaScript, the
+recovery links remain available. Other status pages do not load the game.
+
+Optional browser checks against `npm run dev` (supply `PLAYWRIGHT_MODULE` if
+Playwright is installed outside this repository):
+
+```sh
+node tests/browser-performance.mjs
+node tests/browser-game.mjs
+```
+
+The performance check covers homepage, 404 and 500 at 320, 390, 768 and 1440px,
+with 4× CPU throttling and deliberately delayed fonts/scripts. It asserts zero
+observed CLS, no tasks exceeding 50ms, aligned header/main/footer edges, no page
+overflow, stable widths while filtering and reduced-motion support. These are
+local lab checks, not a guarantee for every device or production environment.
+
+### Catch-all diagnosis and live verification
+
+On September 16, 2026, `fuse.lowkey.tools` returned `NXDOMAIN`: the hostname could
+not resolve, so the request never reached the Worker. A wildcard Worker route
+alone does not create wildcard DNS. Add the proxied `AAAA` record `*` → `100::`
+listed above, then ensure the latest Worker and its `*.lowkey.tools/*` route are
+deployed. Keep explicit app records intact. A DNS change needs authenticated
+Cloudflare access and cannot be configured as a DNS record in `wrangler.jsonc`.
+
+```sh
+npm run check:domains
+```
+
+This read-only check tests root, the permanent www redirect, `fuse.lowkey.tools`,
+and a fresh unknown hostname. It fails clearly on missing DNS, incorrect status,
+or an older 404 response missing the game. A missing hostname must return HTTP
+404 with the game and a recovery link to the canonical hub, not a redirect or 200.

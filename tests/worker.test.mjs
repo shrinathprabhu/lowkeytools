@@ -24,12 +24,15 @@ test('root domain serves assets, preserves headers and returns real 404s', async
 });
 
 test('unknown wildcard hosts return a real 404 with recovery links to the root', async () => {
-  for (const path of ['/', '/follow', '/anything?target=https://example.com']) {
-    const response = await worker.fetch(new Request(`https://unknown.lowkey.tools${path}`), {});
+  for (const host of ['fuse.lowkey.tools', 'unknown.lowkey.tools']) for (const method of ['GET', 'POST', 'PUT', 'DELETE']) for (const path of ['/', '/follow', '/styles.css', '/anything?target=https://example.com']) {
+    const response = await worker.fetch(new Request(`https://${host}${path}`, { method }), {});
     assert.equal(response.status, 404);
     const html = await response.text();
     assert.ok(html.includes('<base href="https://lowkey.tools/">'));
     assert.ok(!html.includes('target='));
+    assert.ok(html.includes('class="math-game"'));
+    assert.ok(html.includes('type="module"'));
+    assert.equal(response.headers.get('Location'), null);
   }
   const head = await worker.fetch(new Request('https://unknown.lowkey.tools/', { method: 'HEAD' }), {});
   assert.equal(head.status, 404);

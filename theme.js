@@ -1,12 +1,3 @@
-// Run before styles paint. Storage is optional (private mode / blocked storage).
-(() => {
-  let saved;
-  try { saved = localStorage.getItem('lowkey-theme'); } catch {}
-  const dark = saved === 'dark' || (saved !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
-  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  document.querySelector('#theme-color')?.setAttribute('content', dark ? '#121316' : '#faf9f6');
-})();
-
 // Shared by the homepage and static error pages.
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
@@ -21,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#theme-color').content = dark ? '#121316' : '#faf9f6';
   }
   setTheme(root.dataset.theme === 'dark');
-  toggle.hidden = false;
+  toggle.removeAttribute('data-pending');
   toggle.addEventListener('click', () => {
     manualTheme = true;
     setTheme(root.dataset.theme !== 'dark');
