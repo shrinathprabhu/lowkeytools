@@ -1,30 +1,36 @@
 # lowkey.tools
 
-> lowkey.tools is a small collection of free, single purpose web tools from the
-> makers of OwlEye Analytics. Each tool does one job in the browser. There is no
-> account, no onboarding and nothing to install.
+> Tiny, free, offline-first tools and instant games. No signup, no tracking, nothing to install. Useful things that run in your browser.
 
-Every tool lives on the same domain under its own path. The tools are independent
-apps, deployed separately and proxied onto lowkey.tools by path prefix.
+Canonical hub: https://lowkey.tools/
 
-## Tools
+No accounts or mandatory installation. Offline capability is marked per tool. FuseLLM sends prompts directly to user-selected AI providers; provider usage may cost money. The hub counts anonymous card impressions and clicks without cookies, visitor IDs, search terms or tool content.
 
-- [Superbrain](https://lowkey.tools/superbrain): A place to dump notes, links and half formed ideas, and actually find them again later.
-- [Supersplit](https://lowkey.tools/supersplit): Split expenses with a group, track who paid for what, and see who owes whom.
-- [Favigen](https://lowkey.tools/favigen): Drop in one image and get back every favicon and app icon size a site needs.
+## Featured
 
-## Coming soon
+- [FuseLLM](https://fusellm.lowkey.tools/): Your models. Better together.. Live; Advanced · BYOK.
 
-- Credo: not live yet, it will appear at https://lowkey.tools/credo
+## Apps
 
-## Facts
+- [SuperBrain](https://superbrain.lowkey.tools/): Local-first notes, zero setup. Live; Installable · works offline.
+- [SuperSplit](https://supersplit.lowkey.tools/): Split bills. Keep the peace.. Live; Installable · works offline.
+- [SuperFocus](https://superfocus.lowkey.tools/): A little focus goes far. Live; Installable · works offline.
+- [StreakFreak](https://streakfreak.lowkey.tools/): Small habits. Longer streaks.. Live; Installable · works offline.
+- [Credo](https://credo.lowkey.tools): Share secrets, keep them secret. Live.
+- [Converteasy](https://converteasy.lowkey.tools/): Everyday conversions, without the fuss. Live.
+- [Favigen](https://favigen.lowkey.tools/): One image. Every favicon.. Live.
+- [Billgen](https://billbook.lowkey.tools/): Invoices made easy, kept local. Live; Installable · works offline. Published as Billbook.
 
-- Cost: every tool listed here is free to use.
-- Account: none required.
-- Platform: runs in any modern web browser, no install step.
-- Maker: OwlEye Analytics, built by Shrinath Prabhu.
+## Games
 
-## About the makers
+- [MathMagician](https://mathmagician.lowkey.tools/): Make mental maths your magic. Live.
+- [Chesscape](https://chesscape.lowkey.tools/): One move. Your daily escape.. Live.
+- [SpotFast](https://spotfast.lowkey.tools/): Look sharp. Remember fast.. Live.
 
-- [OwlEye Analytics](https://owleye.dev): the product team behind lowkey.tools.
-- [Shrinath Prabhu](https://shrinath.me): developer.
+## Creator
+
+Built by Shrinath Prabhu, creator of OwlEye Analytics.
+
+- [OwlEye Analytics](https://owleye.dev)
+- [Shrinath Prabhu](https://shrinath.me)
+- [Follow new releases](https://lowkey.tools/follow)

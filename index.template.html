@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <link rel="canonical" href="{{URL}}">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="author" content="Shrinath Prabhu">
+  <meta name="publisher" content="OwlEye Analytics">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#faf9f6" id="theme-color">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="lowkey.tools">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="{{URL}}">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:image" content="https://lowkey.tools/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="lowkey.tools: Small tools, quietly useful.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+  <meta name="twitter:image" content="https://lowkey.tools/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+  <link rel="preload" href="/fonts/geist-sans-v1.7.2.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/theme.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">{{JSONLD}}</script>
+  <script src="/main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-head">
+    <a class="brand" href="/" aria-label="lowkey.tools home">
+      <img class="mark" src="/favicon.svg" width="32" height="32" alt="">
+      <span class="wordmark">lowkey<span class="dot">.</span>tools</span>
+    </a>
+    <div class="head-right">
+      <span class="head-note">Small tools. Big exhale.</span>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" hidden>
+        <svg class="moon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.5 13a8.5 8.5 0 0 1-9.5-9.5A8.5 8.5 0 1 0 20.5 13Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> TINY. FREE. OFFLINE-FIRST.</p>
+      <h1 id="hero-title">Small tools,<br> quietly <span class="hero-emphasis">useful.</span></h1>
+      <p class="lede">Built by <a href="https://shrinath.me" rel="author">Shrinath Prabhu</a>, creator of <a href="https://owleye.dev">OwlEye Analytics</a>. Useful tools with no accounts, no tracking, and nothing to install.</p>
+      <p class="promise">Runs in your browser. Gets out of your way.</p>
+    </section>
+    <section class="featured-section" aria-label="Featured tool" data-section="featured">{{FEATURED}}</section>
+    <div class="catalog-toolbar">
+      <span class="eyebrow">YOUR EVERYDAY TOOLBOX</span>
+      <div class="search" id="search-controls" hidden>
+        <label class="sr-only" for="tool-search">Filter tools by name, tagline or badge</label>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+        <input id="tool-search" type="search" placeholder="Find a tool…" autocomplete="off" maxlength="100" aria-describedby="search-hint" aria-controls="app-grid game-grid">
+        <span id="search-hint">Press <kbd>/</kbd></span>
+      </div>
+    </div>
+    <p id="search-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    <section class="tools" aria-labelledby="apps-title" data-section="apps">
+      <div class="section-heading"><h2 id="apps-title">Apps <span class="count">{{APP_COUNT}}</span></h2><p>Free, instant, no signup.</p></div>
+      <ul class="tool-grid" id="app-grid">{{APPS}}</ul>
+    </section>
+    <section class="games" aria-labelledby="games-title" data-section="games">
+      <div class="section-heading"><h2 id="games-title">Games <span class="count">{{GAME_COUNT}}</span></h2><p>Play instantly. No install, no signup.</p></div>
+      <ul class="tool-grid game-grid" id="game-grid">{{GAMES}}</ul>
+    </section>
+    <div class="empty-state" id="empty-state" hidden><h2>No tools found.</h2><p>Try a name, “offline”, or “Live”.</p><button id="clear-search" type="button">Clear search</button></div>
+    <div class="small-print"><span aria-hidden="true">↳</span> Offline where it counts. Look for the offline badge; AI providers and live data need a connection.</div>
+  </main>
+  <footer class="site-foot">
+    <div><a class="wordmark" href="https://lowkey.tools/">lowkey<span class="dot">.</span>tools</a><p>A little less friction. A little more done.</p></div>
+    <div class="credits"><p>Built by <a href="https://shrinath.me" rel="me author">Shrinath Prabhu</a>, creator of <a href="https://owleye.dev">OwlEye Analytics</a>.</p><p><a href="/follow">Follow what’s next ↗</a></p></div>
+    <p class="privacy-note">No ads, cookies or personal tracking. We count anonymous card views and clicks to make this toolbox better.</p>
+  </footer>
+</body>
+</html>

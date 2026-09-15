@@ -1,0 +1,13 @@
+{
+  "name": "lowkey-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "preview:cloudflare": "npx wrangler@4 dev --port 8787",
+    "deploy:cloudflare": "npx wrangler@4 deploy"
+  },
+  "engines": { "node": ">=22" }
+}

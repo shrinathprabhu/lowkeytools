@@ -2,6 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/follow",
+      "destination": "/api/follow"
+    },
+    {
+      "source": "/follow/",
+      "destination": "/api/follow"
+    },
+    {
       "source": "/superbrain",
       "destination": "https://superbrain.lowkey.tools"
     },
@@ -17,35 +25,71 @@
       "source": "/supersplit",
       "destination": "https://supersplit.lowkey.tools"
     },
-    { "source": "/supersplit/", "destination": "/supersplit" },
+    {
+      "source": "/supersplit/",
+      "destination": "/supersplit"
+    },
     {
       "source": "/supersplit/:path*",
       "destination": "https://supersplit.lowkey.tools/:path*"
     },
-    { "source": "/favigen", "destination": "https://favigen.lowkey.tools" },
-    { "source": "/favigen/", "destination": "/favigen" },
+    {
+      "source": "/favigen",
+      "destination": "https://favigen.lowkey.tools"
+    },
+    {
+      "source": "/favigen/",
+      "destination": "/favigen"
+    },
     {
       "source": "/favigen/:path*",
       "destination": "https://favigen.lowkey.tools/:path*"
     },
-    { "source": "/credo", "destination": "https://credo.lowkey.tools" },
-    { "source": "/credo/", "destination": "/credo" },
+    {
+      "source": "/credo",
+      "destination": "https://credo.lowkey.tools"
+    },
+    {
+      "source": "/credo/",
+      "destination": "/credo"
+    },
     {
       "source": "/credo/:path*",
       "destination": "https://credo.lowkey.tools/:path*"
     },
-    { "source": "/billbook", "destination": "https://billbook.lowkey.tools" },
-    { "source": "/billbook/", "destination": "/billbook" },
+    {
+      "source": "/billbook",
+      "destination": "https://billbook.lowkey.tools"
+    },
+    {
+      "source": "/billbook/",
+      "destination": "/billbook"
+    },
     {
       "source": "/billbook/:path*",
       "destination": "https://billbook.lowkey.tools/:path*"
+    },
+    {
+      "source": "/spotfast",
+      "destination": "https://spotfast.lowkey.tools"
+    },
+    {
+      "source": "/spotfast/",
+      "destination": "/spotfast"
+    },
+    {
+      "source": "/spotfast/:path*",
+      "destination": "https://spotfast.lowkey.tools/:path*"
     }
   ],
   "headers": [
     {
       "source": "/",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
@@ -67,7 +111,46 @@
     },
     {
       "source": "/(robots.txt|sitemap.xml|llms.txt|site.webmanifest)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(main.js|theme.js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(400|403|404|405|410|413|429|500|502|503|504).html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
-  ]
+  ],
+  "buildCommand": "node scripts/build.mjs",
+  "outputDirectory": "dist",
+  "framework": null
 }

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "lowkey-tools",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-09-12",
+  "routes": [
+    { "pattern": "lowkey.tools", "custom_domain": true },
+    { "pattern": "www.lowkey.tools", "custom_domain": true },
+    { "pattern": "*.lowkey.tools/*", "zone_name": "lowkey.tools" }
+  ],
+  "build": { "command": "npm run build" },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page"
+  },
+  "observability": { "enabled": true }
+}
