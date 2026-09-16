@@ -1,47 +1,33 @@
 import { handleFollow } from '../api/follow.js';
 import { renderStatus } from '../lib/status-pages.mjs';
 import { tools } from '../tools.mjs';
-import hosting from '../vercel.json' with { type: 'json' };
 
-const policy = hosting.headers.map(rule => ({
-  match: new RegExp(`^${rule.source.replaceAll('.', '\\.').replaceAll(':path*', '.*')}$`),
-  headers: rule.headers,
-}));
+// Response headers by path. A later matching rule overrides an earlier one.
+const policy = [
+  { match: /^\/$/, headers: { 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Permissions-Policy': 'camera=(), microphone=(), geolocation=()' } },
+  { match: /^\/(styles\.css|favicon\.svg|favicon\.ico|icon\.svg|apple-touch-icon\.png|icon-192\.png|icon-512\.png|og\.png)$/, headers: { 'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800' } },
+  { match: /^\/(robots\.txt|sitemap\.xml|llms\.txt|site\.webmanifest|\.well-known\/security\.txt)$/, headers: { 'Cache-Control': 'public, max-age=3600' } },
+  { match: /^\/(main\.js|theme\.js)$/, headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
+  { match: /^\/fonts\//, headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+  { match: /^\/(400|403|404|405|410|413|429|500|502|503|504)\.html$/, headers: { 'X-Robots-Tag': 'noindex, follow', 'Cache-Control': 'no-store' } },
+];
 const toolHosts = new Set(tools.filter(tool => tool.url.startsWith('https://')).map(tool => new URL(tool.url).hostname).filter(host => host.endsWith('.lowkey.tools')));
 
-// Reuse the existing path proxies on the Cloudflare target as well.
+// Legacy path proxies: /<name>, /<name>/ and /<name>/* map to <name>.lowkey.tools.
+const proxied = /^\/(superbrain|supersplit|favigen|credo|billbook|spotfast)(?:\/(.*))?$/;
 export function proxyTarget(url) {
-  let path = url.pathname;
-  for (let hop = 0; hop < 3; hop++) {
-    let destination;
-    for (const rule of hosting.rewrites) {
-      if (rule.source.endsWith('/:path*')) {
-        const prefix = rule.source.slice(0, -6);
-        if (path.startsWith(prefix)) {
-          destination = rule.destination.replace(':path*', path.slice(prefix.length));
-          break;
-        }
-      } else if (rule.source === path) {
-        destination = rule.destination;
-        break;
-      }
-    }
-    if (!destination) return null;
-    if (destination.startsWith('https://')) {
-      const target = new URL(destination);
-      target.search = url.search;
-      return target;
-    }
-    path = destination;
-  }
-  return null;
+  const found = url.pathname.match(proxied);
+  if (!found) return null;
+  const target = new URL(`/${found[2] ?? ''}`, `https://${found[1]}.lowkey.tools`);
+  target.search = url.search;
+  return target;
 }
 
 function applyHeaders(response, pathname) {
   const result = new Response(response.body, response);
   for (const rule of policy) {
     if (rule.match.test(pathname)) {
-      for (const { key, value } of rule.headers) result.headers.set(key, value);
+      for (const [key, value] of Object.entries(rule.headers)) result.headers.set(key, value);
     }
   }
   if (result.status >= 400) {

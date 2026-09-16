@@ -66,7 +66,7 @@ export async function build() {
     await writeFile(`${root}dist/${name}`, content);
   }
   const assets = (await readdir(root)).filter(name => /\.(svg|png|ico)$/.test(name));
-  for (const name of [...assets, 'styles.css', 'main.js', 'theme.js', 'robots.txt', 'site.webmanifest', 'icons', 'fonts']) await cp(`${root}${name}`, `${root}dist/${name}`, { recursive: true });
+  for (const name of [...assets, 'styles.css', 'main.js', 'theme.js', 'robots.txt', 'site.webmanifest', '.well-known', 'icons', 'fonts']) await cp(`${root}${name}`, `${root}dist/${name}`, { recursive: true });
   const css = await readFile(`${root}styles.css`, 'utf8');
   for (const code of Object.keys(statusPages)) {
     const page = renderStatus(code, css);

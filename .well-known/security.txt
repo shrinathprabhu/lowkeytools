@@ -1,0 +1,13 @@
+# Contact Information
+Contact: mailto:hello@shrinath.me
+Contact: https://twitter.com/shrinath_prabhu
+Contact: https://linkedin.com/in/shrinath-prabhu
+
+# Expiration Date
+Expires: 2027-09-16T07:00:00.000Z
+
+# Preferred Languages
+Preferred-Languages: en
+
+# Canonical URL
+Canonical: https://lowkey.tools/.well-known/security.txt

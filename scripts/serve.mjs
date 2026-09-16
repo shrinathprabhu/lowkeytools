@@ -30,7 +30,7 @@ createServer(async (req, res) => {
   let path;
   try { path = decodeURIComponent(url.pathname); } catch { await error(400); return; }
   // Only serve generated public files, never source, dotfiles or parent paths.
-  if (path.split('/').some(part => part.startsWith('.')) || path.includes('\\')) { await error(404); return; }
+  if (path.split('/').some(part => part.startsWith('.') && !(part === '.well-known' && path.startsWith('/.well-known/'))) || path.includes('\\')) { await error(404); return; }
   const statusMatch = path.match(/^\/(\d{3})(?:\.html)?$/);
   if (statusMatch && statusPages[statusMatch[1]]) { await error(Number(statusMatch[1])); return; }
   try {

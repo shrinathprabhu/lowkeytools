@@ -1,6 +1,6 @@
 # lowkey.tools
 
-The hub for tiny, free browser tools. Plain HTML, CSS and JavaScript, with Cloudflare Workers and Vercel targets,
+The hub for tiny, free browser tools. Plain HTML, CSS and JavaScript, hosted on Cloudflare Workers,
 with no framework, third-party scripts or package dependencies. A small Node
 script generates static HTML and discovery files from one tool inventory.
 The only runtime function handles `/follow` redirects and anonymous usage counts.
@@ -16,7 +16,8 @@ npm run build # regenerate checked-in output and dist/ for deployment
 ```
 
 Restart the preview after editing source files. This preview serves the real
-follow handler but does not emulate Vercel's legacy tool proxy rules. A simple
+follow handler but does not emulate the Worker's legacy tool proxy rules
+(use `npm run preview:cloudflare` for those). A simple
 static file server also works for browsing, but cannot handle `/follow`.
 
 Optional browser checks use an existing Playwright installation and Chrome:
@@ -32,8 +33,8 @@ browsing, privacy opt-outs and the HTTP redirect. Screenshots go to `/tmp/`.
 ## Edit the inventory
 
 **`tools.mjs` is the only card-data source.** Change `order` to reorder within a
-section, or add one entry to add a tool. Run `npm run build`; Vercel also does
-this automatically. No layout changes are needed.
+section, or add one entry to add a tool. Run `npm run build`; Cloudflare Workers
+Builds also does this automatically. No layout changes are needed.
 
 ```js
 {
@@ -72,7 +73,7 @@ and get their system theme; unusable search/toggle controls remain hidden.
 The generator writes `index.html`, `llms.txt` and `sitemap.xml` in the repository
 and in `dist/`. Do not edit generated copies. Only public assets are copied to
 `dist/`; source, tests, documentation and the launch kit are not published.
-`api/follow.js` is packaged separately as a Vercel Node function.
+`api/follow.js` is a Web Standard handler bundled into the Worker.
 
 ## URLs and deployment
 
@@ -81,28 +82,23 @@ subdomains and canonical slash conventions. **Billgen links to Billbook's
 existing `https://billbook.lowkey.tools/` deployment.** Credo currently declares
 its root without a trailing slash. Hub identity is `https://lowkey.tools/`.
 
-Existing path proxy rules in `vercel.json` remain in place for compatibility.
-This change does not migrate the individual tools or their hosting.
+Legacy path proxies (`/superbrain`, `/supersplit`, `/favigen`, `/credo`,
+`/billbook`, `/spotfast`) live in `worker/index.js`, along with the response
+header policy. This change does not migrate the individual tools or their hosting.
 
-Vercel configuration is checked in:
-
-- Framework preset: Other (`framework: null`).
-- Build command: `node scripts/build.mjs`.
-- Output directory: `dist`.
-- `/follow` and `/follow/` rewrite to `/api/follow`.
-- The function logs the follow hit, then returns **302** to
+- `/follow` and `/follow/` are handled by `api/follow.js` inside the Worker.
+- The handler logs the follow hit, then returns **302** to
   `https://x.com/intent/follow?screen_name=shrinath_prabhu` with `Cache-Control:
   no-store`. It ignores caller query strings. HEAD/prefetch requests do not count.
 
-The function uses Vercel's documented [Node Web Standard handler](https://vercel.com/docs/functions/runtimes/node-js).
 Local build/tests do not deploy the site. After deployment, verify the `/follow`
-302 and event records in Vercel Runtime Logs on the production hostname.
+302 and event records in Cloudflare Workers Logs on the production hostname.
 
 ## Anonymous analytics
 
 The previous hub had **no analytics SDK or configuration**, including on the
 live site. The default implementation therefore emits structured JSON to the hosting
-platform logs (Cloudflare Workers Logs or Vercel Runtime Logs), through the existing `/follow` function. It needs no account keys,
+platform logs (Cloudflare Workers Logs), through the existing `/follow` function. It needs no account keys,
 new third-party script, cookies, database, or browser/session identifiers.
 
 Browser POSTs to `/follow` contain only:
@@ -121,13 +117,13 @@ Browser POSTs to `/follow` contain only:
   card is visible. Group clicks and impressions by ID, section and position to
   compare click/impression rates. Repeat clicks can exceed impressions: these
   are aggregate interactions, not unique-user CTR or confirmed tool usage.
-- Inspect/export those event records from Vercel Runtime Logs. Retention and
+- Inspect/export those event records from Cloudflare Workers Logs. Retention and
   access depend on the hosting account. There is no analytics dashboard bundled
   here. For longer comparisons, export the logs or connect the log sink to the
   intended analytics service when its configuration is available.
 - No search queries, page URLs, referrers, IP addresses, user agents, keys or
   tool contents are included in application events. DNT and GPC suppress counts.
-  Vercel's own platform request logging is separate from these application events.
+  Cloudflare's own platform request logging is separate from these application events.
 - The event receiver validates inventory IDs/positions, accepts at most 512
   bytes, rejects cross-site browser requests and strips extra fields. Like other
   public analytics endpoints it is not proof against scripted/bot traffic.
@@ -178,8 +174,8 @@ Pages are noindex, share the logo/palette/Geist and saved theme, and have real
 links back to the toolbox and Games. They include inline CSS so recovery still
 works when assets fail. They have no analytics and require no JavaScript.
 
-- Vercel automatically serves `dist/404.html` for unmatched static routes with a
-  real 404 status. There is no catch-all 200 rewrite.
+- The Workers asset binding serves `dist/404.html` for unmatched static routes
+  with a real 404 status. There is no catch-all 200 rewrite.
 - `/follow` application errors return branded HTML with their real 400, 403,
   405 or 413 code. Successful event collection still returns an empty 204;
   navigation still returns its 302.
@@ -188,11 +184,8 @@ works when assets fail. They have no analytics and require no JavaScript.
   for missing files and unsupported methods. These named local URLs allow QA;
   simply requesting a static status file on a host does not simulate a platform
   outage or guarantee that status code there.
-- Vercel's **platform-level** custom errors, including edge failures, upstream
-  timeouts and throttling, are [an Enterprise feature](https://vercel.com/docs/custom-error-pages).
-  The generated 500/502/503/504/429 files are ready for that feature. Creating
-  them does not override platform screens on other plans, or replace the error
-  handling inside separately deployed tools. No account plan was changed.
+- Cloudflare platform-level errors (edge failures, upstream timeouts) are not
+  replaced by these pages, nor is error handling inside separately deployed tools.
 
 With the preview running, verify the status pages using an existing Playwright
 installation:
@@ -203,8 +196,7 @@ PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node tests/browser-stat
 
 This checks all 11 HTTP statuses and HEAD responses, actual missing-page 404s,
 application error HTML, mobile overflow, font loading, theme persistence across
-recovery, and recovery with JavaScript/stylesheets/fonts unavailable. Platform
-error replacement still needs verification on the deployed Vercel account.
+recovery, and recovery with JavaScript/stylesheets/fonts unavailable.
 
 ## Cloudflare Workers custom domains
 
@@ -244,8 +236,7 @@ additional certificates. Wrangler does not create this wildcard DNS record.
 
 The two exact Custom Domains are registered by Wrangler on deployment. The
 `lowkey.tools` zone must already be active in the deploying account. Resolve any
-conflicting root/www DNS records when intentionally switching hosting; this local
-change does not move the live domain or alter the current Vercel project.
+conflicting root/www DNS records before deploying.
 
 ```sh
 npm run preview:cloudflare # local Workers runtime on port 8787
@@ -256,15 +247,13 @@ Cloudflare Workers Builds: repository root, build command `npm run build`, deplo
 command `npx wrangler@4 deploy`. Wrangler's configured custom build also runs the
 static generator when invoked directly. Local verification used Wrangler 4.131.1.
 
-The Worker reuses `/follow` and its analytics validation, the existing Vercel path
-proxy inventory, and header policy. On Cloudflare, anonymous event JSON appears
+The Worker reuses `/follow` and its analytics validation, the legacy path
+proxies, and header policy. On Cloudflare, anonymous event JSON appears
 in Workers Logs (`observability.enabled` is set). The static-asset binding serves
 the generated `404.html` with 404, not a SPA fallback. The unknown-host error page
 uses the canonical root as its base so recovery links and assets lead back to
 the hub. Proxied upstream applications retain their own error responses.
 
-Vercel remains a separate deployment option; its platform-error Enterprise
-restriction above does not apply to normal application 404 responses on Workers.
 A Wrangler dry run and local runtime checks do not provision domains, DNS, or TLS.
 
 References: [Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/),
