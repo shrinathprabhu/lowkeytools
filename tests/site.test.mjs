@@ -5,7 +5,7 @@ import { tools, inSection, liveTools, site } from '../tools.mjs';
 import { build, hotlinkable } from '../scripts/build.mjs';
 import { handleFollow } from '../api/follow.js';
 import { createHash } from 'node:crypto';
-import { owleye, bundlePath, mockAnalytics } from '../lib/analytics.mjs';
+import { owleye, bundlePath, analyticsAttributes, mockAnalytics } from '../lib/analytics.mjs';
 
 await build();
 test('required inventory order, URLs and capability boundaries', () => {
@@ -136,13 +136,14 @@ test('OwlEye bundles are pinned, self-hosted, deferred and loaded before page sc
   for (const [name, integrity] of Object.entries(owleye.bundles)) {
     const file = await readFile(new URL(`../dist${bundlePath(name)}`, import.meta.url));
     assert.equal(`sha384-${createHash('sha384').update(file).digest('base64')}`, integrity, name);
-    const tag = `<script defer src="${bundlePath(name)}" data-owleye-id="${owleye.id}" data-owleye-capture-campaigns="true"></script>`;
+    const tag = `<script defer src="${bundlePath(name)}" ${analyticsAttributes}></script>`;
     for (const page of [html, missing]) {
       assert.equal(page.split(tag).length, 2, name);
       assert.ok(page.indexOf(tag) < page.indexOf('src="/theme.js"'), name);
     }
   }
   assert.match(owleye.id, /^owl_[a-f0-9]{32}$/);
+  assert.ok(analyticsAttributes.includes('data-owleye-respect-do-not-track="false" data-owleye-respect-global-privacy-control="false"'));
   assert.ok(!html.includes('cdn.jsdelivr.net'));
   assert.ok(!html.includes('data-owleye-mock'));
   assert.ok(missing.includes("track('status_page_viewed', { status: 404 })"));

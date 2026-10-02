@@ -168,7 +168,11 @@ update the version and hashes. `npm test` fails if a copy differs from its hash.
   error pages `status-home`, `status-games` and `math-more`. Select them with
   **Tracking attribute** in the rule editor. Do not add a rule for tool cards:
   `tool_click` already covers them.
-- The SDK writes no cookies or browser storage and honours DNT and GPC. OwlEye
+- The SDK writes no cookies or browser storage. Its DNT and GPC checks are
+  switched off (`data-owleye-respect-do-not-track="false"` and
+  `data-owleye-respect-global-privacy-control="false"`), so it sends events for
+  every visitor; the OwlEye API still applies its own handling when a browser
+  sends those signals. The first-party `/follow` counts still skip DNT and GPC. OwlEye
   derives pseudonymous visitor estimates on its server from a reduced IP prefix
   and browser information, so this is cookie-free measurement, not zero data.
 - `npm run dev` adds `data-owleye-mock` and `data-owleye-debug` to served HTML:
