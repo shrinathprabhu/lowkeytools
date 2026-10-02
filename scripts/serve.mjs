@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { handleFollow } from '../api/follow.js';
 import { build } from './build.mjs';
 import { statusPages, renderStatus } from '../lib/status-pages.mjs';
+import { mockAnalytics } from '../lib/analytics.mjs';
 
 await build();
 const root = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -12,7 +13,8 @@ const port = Number(process.env.PORT || 4321);
 createServer(async (req, res) => {
   const error = async (code, extra = {}) => {
     let body;
-    try { body = await readFile(root + code + '.html'); } catch { body = renderStatus(code); }
+    try { body = await readFile(root + code + '.html', 'utf8'); } catch { body = renderStatus(code); }
+    body = mockAnalytics(body);
     res.writeHead(code, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, follow', ...extra });
     res.end(req.method === 'HEAD' ? undefined : body);
   };
@@ -35,7 +37,8 @@ createServer(async (req, res) => {
   if (statusMatch && statusPages[statusMatch[1]]) { await error(Number(statusMatch[1])); return; }
   try {
     const file = path === '/' ? 'index.html' : path.slice(1);
-    const body = await readFile(root + file);
+    let body = await readFile(root + file);
+    if (file.endsWith('.html')) body = mockAnalytics(body.toString());
     res.writeHead(200, { 'Content-Type': types[file.split('.').pop()] || 'application/octet-stream', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
     res.end(req.method === 'HEAD' ? undefined : body);
   } catch (failure) {

@@ -3,7 +3,7 @@
 export const site = {
   url: 'https://lowkey.tools/',
   title: 'lowkey.tools | Tiny, free tools for your browser',
-  description: 'Tiny, free, offline-first tools and instant games. No signup, no tracking, nothing to install. Useful things that run in your browser.',
+  description: 'Tiny, free, offline-first tools and instant games. No signup, nothing to install. Useful things that run in your browser.',
   followUrl: 'https://x.com/intent/follow?screen_name=shrinath_prabhu',
 };
 

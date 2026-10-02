@@ -1,10 +1,10 @@
 # lowkey.tools
 
-> Tiny, free, offline-first tools and instant games. No signup, no tracking, nothing to install. Useful things that run in your browser.
+> Tiny, free, offline-first tools and instant games. No signup, nothing to install. Useful things that run in your browser.
 
 Canonical hub: https://lowkey.tools/
 
-No accounts or mandatory installation. Offline capability is marked per tool. FuseLLM sends prompts directly to user-selected AI providers; provider usage may cost money. The hub counts anonymous card impressions and clicks without cookies, visitor IDs, search terms or tool content.
+No accounts or mandatory installation. Offline capability is marked per tool. FuseLLM sends prompts directly to user-selected AI providers; provider usage may cost money. The hub uses cookie-free OwlEye Analytics for page views, card impressions, clicks and load speed, without cookies, browser storage, search terms or tool content.
 
 ## Featured
 

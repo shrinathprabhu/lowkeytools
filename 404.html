@@ -262,12 +262,16 @@ body > header, body > main, body > footer { width: 100%; min-width: 0; }
   .status-main:has(.math-game) { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .math-game { padding: 16px; }
 }
-</style><link rel="stylesheet" href="/styles.css"><script src="/theme.js" defer></script>
+</style><link rel="stylesheet" href="/styles.css">
+<script defer src="/vendor/owleye-analytics-1.0.0/owleye.analytics.iife.js" data-owleye-id="owl_8c15546f2cec4e5696abadc5a3486e6c" data-owleye-capture-campaigns="true"></script>
+<script defer src="/vendor/owleye-analytics-1.0.0/owleye.rules.iife.js" data-owleye-id="owl_8c15546f2cec4e5696abadc5a3486e6c" data-owleye-capture-campaigns="true"></script>
+<script defer src="/vendor/owleye-analytics-1.0.0/owleye.performance.iife.js" data-owleye-id="owl_8c15546f2cec4e5696abadc5a3486e6c" data-owleye-capture-campaigns="true"></script>
+<script src="/theme.js" defer></script>
 </head><body class="status-page">
 <header class="site-head"><a class="brand" href="/" aria-label="lowkey.tools home"><img src="/favicon.svg" width="32" height="32" alt=""><span class="wordmark">lowkey<span class="dot">.</span>tools</span></a>
 <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" data-pending><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.5 13a8.5 8.5 0 0 1-9.5-9.5A8.5 8.5 0 1 0 20.5 13Z"/></svg></button></header>
 <main id="main" class="status-main"><div class="status-copy"><div class="status-code" aria-hidden="true">404</div><h1>A little off the beaten path.</h1><p class="lede">This page doesn’t exist, or it has moved. Your next useful find is back in the toolbox.</p>
-<div class="status-actions"><a class="primary" href="/">Back to the toolbox <span aria-hidden="true">&nbsp;↗</span></a><a href="/#games-title">Take a game break</a></div></div><section class="math-game" aria-labelledby="game-title">
+<div class="status-actions"><a class="primary" href="/" data-owleye-track="status-home">Back to the toolbox <span aria-hidden="true">&nbsp;↗</span></a><a href="/#games-title" data-owleye-track="status-games">Take a game break</a></div></div><section class="math-game" aria-labelledby="game-title">
 <h2 id="game-title">A little mental detour</h2>
 <p class="game-intro">Five quick math puzzles. No timer, no pressure.</p>
 <p class="game-progress" id="game-progress">Question 1 of 5 · Score 0</p>
@@ -276,10 +280,11 @@ body > header, body > main, body > footer { width: 100%; min-width: 0; }
 <button type="button" disabled>9</button><button type="button" disabled>12</button><button type="button" disabled>14</button>
 </div>
 <p class="game-feedback" id="game-feedback" role="status" aria-live="polite" aria-atomic="true">Choose an answer to begin.</p>
-<div class="game-bottom"><button type="button" id="game-next" disabled>Next puzzle</button><a href="https://mathmagician.lowkey.tools/">More math ↗</a></div>
+<div class="game-bottom"><button type="button" id="game-next" disabled>Next puzzle</button><a href="https://mathmagician.lowkey.tools/" data-owleye-track="math-more">More math ↗</a></div>
 <noscript><p>Enable JavaScript to play. The toolbox link still works.</p></noscript>
 </section></main>
-<footer class="status-foot"><p>Small tools, quietly useful. <a href="/">lowkey.tools</a></p><p>Built by <a href="https://shrinath.me">Shrinath Prabhu</a>, creator of <a href="https://owleye.dev">OwlEye Analytics</a>.</p></footer>
+<footer class="status-foot"><p>Small tools, quietly useful. <a href="/">lowkey.tools</a></p><p>Built by <a href="https://shrinath.me" data-owleye-track="author-link">Shrinath Prabhu</a>, creator of <a href="https://owleye.dev" data-owleye-track="owleye-link">OwlEye Analytics</a>.</p></footer>
+<script type="module">window.OwlEyeAnalytics?.track('status_page_viewed', { status: 404 });</script>
 <script type="module">(function playMath() {
   const game = document.querySelector('.math-game');
   if (!game) return;
@@ -293,6 +298,9 @@ body > header, body > main, body > footer { width: 100%; min-width: 0; }
   let correct = 12;
   let answered = false;
   const random = max => Math.floor(Math.random() * max);
+  // Read the global at call time: a blocked analytics script just drops the event.
+  const track = (name, data) => window.OwlEyeAnalytics?.track(name, data);
+  let games = 0;
   const showProgress = () => { progress.textContent = `Question ${round} of 5 · Score ${score}`; };
   answers.forEach(button => {
     button.disabled = false;
@@ -301,6 +309,8 @@ body > header, body > main, body > footer { width: 100%; min-width: 0; }
       answered = true;
       const right = Number(button.textContent) === correct;
       if (right) score++;
+      if (round === 1) track('math_game_started', { replay: games > 0 });
+      if (round === 5) track('math_game_completed', { score, games_played: ++games });
       button.setAttribute('aria-pressed', 'true');
       answers.forEach(answer => answer.setAttribute('aria-disabled', 'true'));
       feedback.textContent = round === 5

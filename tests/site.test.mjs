@@ -4,6 +4,8 @@ import { readFile, access } from 'node:fs/promises';
 import { tools, inSection, liveTools, site } from '../tools.mjs';
 import { build } from '../scripts/build.mjs';
 import { handleFollow } from '../api/follow.js';
+import { createHash } from 'node:crypto';
+import { owleye, bundlePath, mockAnalytics } from '../lib/analytics.mjs';
 
 await build();
 test('required inventory order, URLs and capability boundaries', () => {
@@ -126,4 +128,23 @@ test('all error pages are static, noindex and share the modern theme', async () 
   assert.equal(result.status, 405);
   assert.match(result.headers.get('content-type'), /text\/html/);
   assert.ok((await result.text()).includes('Try opening the page instead.'));
+});
+
+test('OwlEye bundles are pinned, self-hosted, deferred and loaded before page scripts', async () => {
+  const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+  const missing = await readFile(new URL('../dist/404.html', import.meta.url), 'utf8');
+  for (const [name, integrity] of Object.entries(owleye.bundles)) {
+    const file = await readFile(new URL(`../dist${bundlePath(name)}`, import.meta.url));
+    assert.equal(`sha384-${createHash('sha384').update(file).digest('base64')}`, integrity, name);
+    const tag = `<script defer src="${bundlePath(name)}" data-owleye-id="${owleye.id}" data-owleye-capture-campaigns="true"></script>`;
+    for (const page of [html, missing]) {
+      assert.equal(page.split(tag).length, 2, name);
+      assert.ok(page.indexOf(tag) < page.indexOf('src="/theme.js"'), name);
+    }
+  }
+  assert.match(owleye.id, /^owl_[a-f0-9]{32}$/);
+  assert.ok(!html.includes('cdn.jsdelivr.net'));
+  assert.ok(!html.includes('data-owleye-mock'));
+  assert.ok(missing.includes("track('status_page_viewed', { status: 404 })"));
+  assert.equal((mockAnalytics(html).match(/data-owleye-mock="true"/g) || []).length, 3);
 });

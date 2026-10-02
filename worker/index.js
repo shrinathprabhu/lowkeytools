@@ -9,6 +9,8 @@ const policy = [
   { match: /^\/(robots\.txt|sitemap\.xml|llms\.txt|site\.webmanifest|\.well-known\/security\.txt)$/, headers: { 'Cache-Control': 'public, max-age=3600' } },
   { match: /^\/(main\.js|theme\.js)$/, headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
   { match: /^\/fonts\//, headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+  // Versioned directory names: a new SDK release gets a new URL.
+  { match: /^\/vendor\//, headers: { 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff' } },
   { match: /^\/(400|403|404|405|410|413|429|500|502|503|504)\.html$/, headers: { 'X-Robots-Tag': 'noindex, follow', 'Cache-Control': 'no-store' } },
 ];
 const toolHosts = new Set(tools.filter(tool => tool.url.startsWith('https://')).map(tool => new URL(tool.url).hostname).filter(host => host.endsWith('.lowkey.tools')));

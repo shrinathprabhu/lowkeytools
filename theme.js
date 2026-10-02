@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     manualTheme = true;
     setTheme(root.dataset.theme !== 'dark');
     try { localStorage.setItem('lowkey-theme', root.dataset.theme); } catch {}
+    window.OwlEyeAnalytics?.track('theme_toggled', { theme: root.dataset.theme });
   });
   preference.addEventListener('change', event => { if (!manualTheme) setTheme(event.matches); });
   window.addEventListener('storage', event => {

@@ -131,7 +131,52 @@ Browser POSTs to `/follow` contain only:
   counted. GET `/follow` counts requests, not verified X follows; X may require
   sign-in. The redirect remains functional if application logging fails.
 
-The footer discloses these anonymous counts. The FuseLLM card preserves the
+### OwlEye Analytics
+
+The hub and its error pages also load [OwlEye Analytics](https://owleye.dev/docs/cdn/)
+1.0.0. Configuration lives in `lib/analytics.mjs`: the public Tracking ID, the SDK
+version and the SHA-384 of each bundle. The three IIFE bundles are byte-identical
+copies of `@owleye/analytics@1.0.0` in `vendor/owleye-analytics-1.0.0/`, served from
+this origin with an immutable cache; only events go to `api.owleye.dev`. To upgrade,
+copy the new `dist/owleye.*.iife.js` files into a new versioned directory and
+update the version and hashes. `npm test` fails if a copy differs from its hash.
+
+- **Automatic:** page views and time on page (`owleye.analytics`), Web Vitals
+  estimates for LCP, INP, CLS, FCP and TTFB (`owleye.performance`), and any rules
+  enabled in the OwlEye console (`owleye.rules`). UTM capture is limited to
+  `utm_source`, `utm_medium` and `utm_campaign`; other query strings and
+  fragments are never sent.
+- **Custom events** (`window.OwlEyeAnalytics.track`, flat primitive fields only):
+
+  | Event | Fields | Sent from |
+  | --- | --- | --- |
+  | `tool_click` | `tool_id`, `section`, `position`, `visible_position`, `filtered`, `new_tab` | `main.js` |
+  | `tool_impression` | `tool_id`, `section`, `position`, `visible_position` | `main.js` |
+  | `tool_search` | `results`, `terms`, `zero_results` (never the words typed) | `main.js` |
+  | `search_focused` | `via` (`shortcut` or `direct`), once per page load | `main.js` |
+  | `hub_installed` | none | `main.js` |
+  | `theme_toggled` | `theme` | `theme.js` |
+  | `status_page_viewed` | `status` | `lib/status-pages.mjs` |
+  | `math_game_started` | `replay` | `lib/math-game.mjs` |
+  | `math_game_completed` | `score`, `games_played` | `lib/math-game.mjs` |
+
+  The SDK sends one request per event and drops events beyond eight in flight, so
+  card impressions are spaced 150 ms apart rather than sent in one burst.
+- **Rule targets:** stable `data-owleye-track` attributes exist for console rules,
+  which need no deploy: `section-featured`, `section-apps`, `section-games`,
+  `footer`, `author-link`, `owleye-link`, `follow-link`, `clear-search`, and on
+  error pages `status-home`, `status-games` and `math-more`. Select them with
+  **Tracking attribute** in the rule editor. Do not add a rule for tool cards:
+  `tool_click` already covers them.
+- The SDK writes no cookies or browser storage and honours DNT and GPC. OwlEye
+  derives pseudonymous visitor estimates on its server from a reduced IP prefix
+  and browser information, so this is cookie-free measurement, not zero data.
+- `npm run dev` adds `data-owleye-mock` and `data-owleye-debug` to served HTML:
+  payloads are logged to the browser console and nothing is sent. Built files in
+  `dist/` always use live collection. If allowed origins are set in the OwlEye
+  app, they must include `https://lowkey.tools`.
+
+The footer discloses these counts. The FuseLLM card preserves the
 requested subtitle and explicitly clarifies that prompts go to the selected
 AI providers and provider fees can apply.
 
@@ -172,7 +217,8 @@ button is 44px. The document has no horizontal overflow at 320px.
 static `<code>.html` file in `dist/`; the checked-in `404.html` is generated too.
 Pages are noindex, share the logo/palette/Geist and saved theme, and have real
 links back to the toolbox and Games. They include inline CSS so recovery still
-works when assets fail. They have no analytics and require no JavaScript.
+works when assets fail. They require no JavaScript; when it is available they load
+the same OwlEye bundles as the homepage and send `status_page_viewed`.
 
 - The Workers asset binding serves `dist/404.html` for unmatched static routes
   with a real 404 status. There is no catch-all 200 rewrite.
@@ -306,3 +352,11 @@ This read-only check tests root, the permanent www redirect, `fuse.lowkey.tools`
 and a fresh unknown hostname. It fails clearly on missing DNS, incorrect status,
 or an older 404 response missing the game. A missing hostname must return HTTP
 404 with the game and a recovery link to the canonical hub, not a redirect or 200.
+
+## Regenerating the favicon
+
+`favicon.svg` is the source for the ICO fallback. After installing development
+dependencies with `npm ci`, run `npm run build:favicon` to render 16, 32 and 48px
+frames directly from the SVG, then `npm run build` to copy the ICO into `dist/`.
+The generator uses Sharp to avoid Quick Look thumbnail framing. The full
+`build-icons.sh` script also uses this generator for its ICO step.
