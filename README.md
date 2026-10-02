@@ -183,6 +183,12 @@ AI providers and provider fees can apply.
 ## SEO and assets
 
 Hub title/description, OG/Twitter tags and JSON-LD derive from the same config.
+The zone uses Cloudflare Hotlink Protection, which exempts any path containing
+`hotlink-ok`. The build therefore publishes `og.png`, `favicon.ico` and
+`apple-touch-icon.png` under `/hotlink-ok/` as well, and the page references
+those copies so other sites can embed them. The source files and root copies
+stay where they are for older links and the conventional `/favicon.ico` request.
+
 The existing `og.png` is a valid 1200 × 630 hub preview. This pass does not change
 individual tools' social images. Existing brand assets are reused locally.
 

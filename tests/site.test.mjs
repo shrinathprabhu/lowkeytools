@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import { tools, inSection, liveTools, site } from '../tools.mjs';
-import { build } from '../scripts/build.mjs';
+import { build, hotlinkable } from '../scripts/build.mjs';
 import { handleFollow } from '../api/follow.js';
 import { createHash } from 'node:crypto';
 import { owleye, bundlePath, mockAnalytics } from '../lib/analytics.mjs';
@@ -147,4 +147,14 @@ test('OwlEye bundles are pinned, self-hosted, deferred and loaded before page sc
   assert.ok(!html.includes('data-owleye-mock'));
   assert.ok(missing.includes("track('status_page_viewed', { status: 404 })"));
   assert.equal((mockAnalytics(html).match(/data-owleye-mock="true"/g) || []).length, 3);
+});
+
+test('embeddable images are published under hotlink-ok and referenced from there', async () => {
+  const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+  for (const name of hotlinkable) {
+    const [root, copy] = await Promise.all([readFile(new URL(`../dist/${name}`, import.meta.url)), readFile(new URL(`../dist/hotlink-ok/${name}`, import.meta.url))]);
+    assert.ok(root.equals(copy), name);
+    assert.ok(html.includes(`/hotlink-ok/${name}"`), name);
+    assert.ok(!html.includes(`"/${name}"`) && !html.includes(`lowkey.tools/${name}"`), name);
+  }
 });

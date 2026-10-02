@@ -7,6 +7,7 @@ import { statusPages, renderStatus } from '../lib/status-pages.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+export const hotlinkable = ['og.png', 'favicon.ico', 'apple-touch-icon.png'];
 const xIcon = '<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.6 5.5 22H2.3l7.3-8.5L1.8 2h6.5l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z"/></svg>';
 
 export function validateInventory() {
@@ -68,6 +69,11 @@ export async function build() {
   }
   const assets = (await readdir(root)).filter(name => /\.(svg|png|ico)$/.test(name));
   for (const name of [...assets, 'styles.css', 'main.js', 'theme.js', 'robots.txt', 'site.webmanifest', '.well-known', 'icons', 'fonts', 'vendor']) await cp(`${root}${name}`, `${root}dist/${name}`, { recursive: true });
+  // Cloudflare Hotlink Protection skips any path containing "hotlink-ok", so other
+  // sites can embed the preview image and icons. Root copies stay for old links
+  // and the conventional /favicon.ico request.
+  await mkdir(`${root}dist/hotlink-ok`, { recursive: true });
+  for (const name of hotlinkable) await cp(`${root}${name}`, `${root}dist/hotlink-ok/${name}`);
   const css = await readFile(`${root}styles.css`, 'utf8');
   for (const code of Object.keys(statusPages)) {
     const page = renderStatus(code, css);

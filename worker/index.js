@@ -6,6 +6,7 @@ import { tools } from '../tools.mjs';
 const policy = [
   { match: /^\/$/, headers: { 'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Permissions-Policy': 'camera=(), microphone=(), geolocation=()' } },
   { match: /^\/(styles\.css|favicon\.svg|favicon\.ico|icon\.svg|apple-touch-icon\.png|icon-192\.png|icon-512\.png|og\.png)$/, headers: { 'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800' } },
+  { match: /^\/hotlink-ok\//, headers: { 'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800' } },
   { match: /^\/(robots\.txt|sitemap\.xml|llms\.txt|site\.webmanifest|\.well-known\/security\.txt)$/, headers: { 'Cache-Control': 'public, max-age=3600' } },
   { match: /^\/(main\.js|theme\.js)$/, headers: { 'Cache-Control': 'public, max-age=0, must-revalidate' } },
   { match: /^\/fonts\//, headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
