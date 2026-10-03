@@ -70,7 +70,7 @@ test('legacy proxy targets retain their existing domain/path/query mappings', ()
 });
 
 test('versioned SDK bundles are cached as immutable assets', async () => {
-  const response = await worker.fetch(new Request('https://lowkey.tools/vendor/owleye-analytics-1.0.0/owleye.analytics.iife.js'), { ASSETS: { fetch: async () => new Response('sdk') } });
+  const response = await worker.fetch(new Request('https://lowkey.tools/vendor/owleye-analytics-1.0.1/owleye.full.iife.js'), { ASSETS: { fetch: async () => new Response('sdk') } });
   assert.equal(response.headers.get('Cache-Control'), 'public, max-age=31536000, immutable');
   assert.equal(response.headers.get('X-Content-Type-Options'), 'nosniff');
 });

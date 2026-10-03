@@ -130,7 +130,7 @@ test('all error pages are static, noindex and share the modern theme', async () 
   assert.ok((await result.text()).includes('Try opening the page instead.'));
 });
 
-test('OwlEye bundles are pinned, self-hosted, deferred and loaded before page scripts', async () => {
+test('OwlEye bundle is pinned, self-hosted, deferred and loaded before page scripts', async () => {
   const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
   const missing = await readFile(new URL('../dist/404.html', import.meta.url), 'utf8');
   for (const [name, integrity] of Object.entries(owleye.bundles)) {
@@ -143,11 +143,12 @@ test('OwlEye bundles are pinned, self-hosted, deferred and loaded before page sc
     }
   }
   assert.match(owleye.id, /^owl_[a-f0-9]{32}$/);
-  assert.ok(analyticsAttributes.includes('data-owleye-respect-do-not-track="false" data-owleye-respect-global-privacy-control="false"'));
+  assert.ok(analyticsAttributes.includes('data-owleye-respect-global-privacy-control="false"'));
+  assert.ok(!analyticsAttributes.includes('do-not-track'));
   assert.ok(!html.includes('cdn.jsdelivr.net'));
   assert.ok(!html.includes('data-owleye-mock'));
   assert.ok(missing.includes("track('status_page_viewed', { status: 404 })"));
-  assert.equal((mockAnalytics(html).match(/data-owleye-mock="true"/g) || []).length, 3);
+  assert.equal((mockAnalytics(html).match(/data-owleye-mock="true"/g) || []).length, Object.keys(owleye.bundles).length);
 });
 
 test('embeddable images are published under hotlink-ok and referenced from there', async () => {

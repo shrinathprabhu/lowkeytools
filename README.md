@@ -134,16 +134,17 @@ Browser POSTs to `/follow` contain only:
 ### OwlEye Analytics
 
 The hub and its error pages also load [OwlEye Analytics](https://owleye.dev/docs/cdn/)
-1.0.0. Configuration lives in `lib/analytics.mjs`: the public Tracking ID, the SDK
-version and the SHA-384 of each bundle. The three IIFE bundles are byte-identical
-copies of `@owleye/analytics@1.0.0` in `vendor/owleye-analytics-1.0.0/`, served from
-this origin with an immutable cache; only events go to `api.owleye.dev`. To upgrade,
-copy the new `dist/owleye.*.iife.js` files into a new versioned directory and
-update the version and hashes. `npm test` fails if a copy differs from its hash.
+1.0.1 as one script, `owleye.full.iife.js`, which combines page analytics, console
+rules and Web Vitals. Configuration lives in `lib/analytics.mjs`: the public
+Tracking ID, the SDK version, the bundle's SHA-384 and the script attributes. The
+bundle is copied into `vendor/owleye-analytics-1.0.1/` and served from this origin
+with an immutable cache; only events and rule requests go to `api.owleye.dev`. To
+upgrade, copy the new `dist/owleye.full.iife.js` into a new versioned directory and
+update the version and hash from that release's `dist/integrity.json`. `npm test`
+fails if the copy differs from its hash.
 
-- **Automatic:** page views and time on page (`owleye.analytics`), Web Vitals
-  estimates for LCP, INP, CLS, FCP and TTFB (`owleye.performance`), and any rules
-  enabled in the OwlEye console (`owleye.rules`). UTM capture is limited to
+- **Automatic:** page views and time on page, Web Vitals estimates for LCP, INP,
+  CLS, FCP and TTFB, and any rules enabled in the OwlEye console. UTM capture is limited to
   `utm_source`, `utm_medium` and `utm_campaign`; other query strings and
   fragments are never sent.
 - **Custom events** (`window.OwlEyeAnalytics.track`, flat primitive fields only):
@@ -168,11 +169,11 @@ update the version and hashes. `npm test` fails if a copy differs from its hash.
   error pages `status-home`, `status-games` and `math-more`. Select them with
   **Tracking attribute** in the rule editor. Do not add a rule for tool cards:
   `tool_click` already covers them.
-- The SDK writes no cookies or browser storage. Its DNT and GPC checks are
-  switched off (`data-owleye-respect-do-not-track="false"` and
-  `data-owleye-respect-global-privacy-control="false"`), so it sends events for
-  every visitor; the OwlEye API still applies its own handling when a browser
-  sends those signals. The first-party `/follow` counts still skip DNT and GPC. OwlEye
+- The SDK writes no cookies or browser storage. SDK 1.0.1 no longer reads Do Not
+  Track, and its Global Privacy Control check is switched off
+  (`data-owleye-respect-global-privacy-control="false"`). The OwlEye API does not
+  filter on either signal, so events are recorded for every visitor. The
+  first-party `/follow` counts still skip DNT and GPC. OwlEye
   derives pseudonymous visitor estimates on its server from a reduced IP prefix
   and browser information, so this is cookie-free measurement, not zero data.
 - `npm run dev` adds `data-owleye-mock` and `data-owleye-debug` to served HTML:
