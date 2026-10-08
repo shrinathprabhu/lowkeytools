@@ -9,11 +9,11 @@ import { owleye, bundlePath, analyticsAttributes, mockAnalytics } from '../lib/a
 
 await build();
 test('required inventory order, URLs and capability boundaries', () => {
-  assert.deepEqual(inSection('apps').map(t => t.id), ['superbrain', 'supersplit', 'superfocus', 'streakfreak', 'credo', 'converteasy', 'favigen', 'billgen', 'follow']);
+  assert.deepEqual(inSection('apps').map(t => t.id), ['superbrain', 'supersplit', 'superfocus', 'streakfreak', 'credo', 'converteasy', 'favigen', 'billbook', 'follow']);
   assert.deepEqual(inSection('games').map(t => t.id), ['mathmagician', 'chesscape', 'spotfast']);
-  assert.deepEqual(tools.filter(t => t.pwa).map(t => t.id), ['superbrain', 'supersplit', 'superfocus', 'streakfreak', 'billgen']);
+  assert.deepEqual(tools.filter(t => t.pwa).map(t => t.id), ['superbrain', 'supersplit', 'superfocus', 'streakfreak', 'billbook']);
   assert.deepEqual(tools.filter(t => t.badges.includes('Advanced · BYOK')).map(t => t.id), ['fusellm']);
-  assert.equal(tools.find(t => t.id === 'billgen').url, 'https://billbook.lowkey.tools/');
+  assert.equal(tools.find(t => t.id === 'billbook').url, 'https://billbook.lowkey.tools/');
   assert.equal(liveTools().length, 12);
 });
 

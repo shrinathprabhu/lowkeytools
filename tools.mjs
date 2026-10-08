@@ -21,8 +21,7 @@ export const tools = [
   { id: 'credo', name: 'Credo', tagline: 'Share secrets, keep them secret', url: 'https://credo.lowkey.tools', icon: '/credo-icon.svg', badges: ['Live'], pwa: false, section: 'apps', order: 5 },
   { id: 'converteasy', name: 'Converteasy', tagline: 'Everyday conversions, without the fuss', url: 'https://converteasy.lowkey.tools/', icon: '/icons/converteasy.svg', badges: ['Live'], pwa: false, section: 'apps', order: 6 },
   { id: 'favigen', name: 'Favigen', tagline: 'One image. Every favicon.', url: 'https://favigen.lowkey.tools/', icon: '/favigen-icon.svg', badges: ['Live'], pwa: false, section: 'apps', order: 7 },
-  // Billgen is the requested hub label. Billbook is its existing production domain.
-  { id: 'billgen', name: 'Billgen', tagline: 'Invoices made easy, kept local', url: 'https://billbook.lowkey.tools/', icon: '/billbook-icon.svg', badges: ['Live', 'Installable · works offline'], pwa: true, section: 'apps', order: 8 },
+  { id: 'billbook', name: 'Billbook', tagline: 'Invoices made easy, kept local', url: 'https://billbook.lowkey.tools/', icon: '/billbook-icon.svg', badges: ['Live', 'Installable · works offline'], pwa: true, section: 'apps', order: 8 },
   { id: 'follow', name: "Something’s lowkey brewing 👀", tagline: 'New tools ship here first. Follow for the drop.', url: '/follow', icon: '?', badges: [], pwa: false, section: 'apps', order: 9, kind: 'teaser', cta: 'Follow for updates', ctaIcon: 'x' },
   { id: 'mathmagician', name: 'MathMagician', tagline: 'Make mental maths your magic', url: 'https://mathmagician.lowkey.tools/', icon: '/icons/mathmagician.svg', badges: ['Live'], pwa: false, section: 'games', order: 1 },
   { id: 'chesscape', name: 'Chesscape', tagline: 'One move. Your daily escape.', url: 'https://chesscape.lowkey.tools/', icon: '/icons/chesscape.svg', badges: ['Live'], pwa: false, section: 'games', order: 2 },

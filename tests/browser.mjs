@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const base = process.env.TEST_URL || 'http://localhost:4321';
-const expected = ['superbrain','supersplit','superfocus','streakfreak','credo','converteasy','favigen','billgen','follow'];
+const expected = ['superbrain','supersplit','superfocus','streakfreak','credo','converteasy','favigen','billbook','follow'];
 let checks = 0;
 try {
   for (const [width, height, colorScheme] of [[1440,1000,'light'],[390,844,'light'],[390,844,'dark'],[320,667,'light'],[768,1024,'dark']]) {

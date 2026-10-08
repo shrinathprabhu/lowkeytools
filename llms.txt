@@ -19,7 +19,7 @@ No accounts or mandatory installation. Offline capability is marked per tool. Fu
 - [Credo](https://credo.lowkey.tools): Share secrets, keep them secret. Live.
 - [Converteasy](https://converteasy.lowkey.tools/): Everyday conversions, without the fuss. Live.
 - [Favigen](https://favigen.lowkey.tools/): One image. Every favicon.. Live.
-- [Billgen](https://billbook.lowkey.tools/): Invoices made easy, kept local. Live; Installable · works offline. Published as Billbook.
+- [Billbook](https://billbook.lowkey.tools/): Invoices made easy, kept local. Live; Installable · works offline.
 
 ## Games
 

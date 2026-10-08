@@ -54,7 +54,7 @@ Builds also does this automatically. No layout changes are needed.
   can also appear in the hub sitemap. Use `Coming soon`
   (optionally another date badge) to keep a planned tool out of those live lists.
   Give upcoming cards a working announcement destination; cards are real links.
-- Only SuperBrain, SuperSplit, SuperFocus, StreakFreak and Billgen have
+- Only SuperBrain, SuperSplit, SuperFocus, StreakFreak and Billbook have
   `Installable · works offline` in this brief. Set `pwa` consistently with that
   badge. Only FuseLLM gets `Advanced · BYOK`.
 - The `kind: 'teaser'` entry owns all teaser text, glyph, CTA, link and position.
@@ -78,7 +78,7 @@ and in `dist/`. Do not edit generated copies. Only public assets are copied to
 ## URLs and deployment
 
 All twelve live tool roots were checked on 2026-09-15. Cards use their existing
-subdomains and canonical slash conventions. **Billgen links to Billbook's
+subdomains and canonical slash conventions. **Billbook links to its
 existing `https://billbook.lowkey.tools/` deployment.** Credo currently declares
 its root without a trailing slash. Hub identity is `https://lowkey.tools/`.
 
